@@ -13,7 +13,7 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className="gameBoard">
         <GameBoardRender array={array} />
       </div>
 

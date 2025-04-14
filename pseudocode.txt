@@ -15,13 +15,18 @@ Create source of 12 pictures.
 Display 12 pictures
 - 
 
-const array = [0,1,2,3,4,5,6,7,8,9,10,11];
+- create getRandomArray function
 
-for (let i = array.length - 1; i > 0; i-- ) {
 
-let ranIndex =  Math.floor(Math.random()*12)
+Picking cards
+- event listener for each card
 
-let temp = array[i]
-array[i] = array[ranIndex]
-array[ranIndex] = temp
-}
+Scoring
+
+- keep score:
+    - create array to store chosen cards
+    - check chosen card id against chosen array.
+        - if no matches, add +1 to score
+        - if match, check current score against high score, update if higher (possibly always update)
+        - empty chosen array
+        - reset score to zero 

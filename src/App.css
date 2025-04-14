@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  max-width: 2480px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -41,11 +41,35 @@
   color: #888;
 }
 
+.gameBoard {
+  /* display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; or 'space-evenly' / 'center' depending on look */
+  /* gap: 10px; optional spacing between squares */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+  width: 100%;
+}
 .gameCard {
+  /* display: flex;
   border-color: black;
   border-width: 2px;
   border-style: dotted;
   border-radius: 5%;
   padding: 10px;
   margin: 10px;
+  /* height: 200px;
+  width: 200px; */
+  /* flex: 1 1 calc(100% / 6 - 10px); /* allow up to 6 per row */
+  /* max-width: calc(100% / 6 - 10px); /* prevent exceeding 6 per row */
+  /* aspect-ratio: 1; makes it a square */
+  /* background-color: lightblue; just for visual */ */ */ */
+  aspect-ratio: 1; /* Keeps it square */
+  background-color: lightblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+
 }
