@@ -1,0 +1,27 @@
+Pseudocode for React App
+
+
+Create framework for gallery
+- Create container element for gallery
+- Set up CSS for gallery to adapt to difference size screens
+- Set up gallery as a flexbox structure.
+
+
+
+Create source of 12 pictures.
+- Extract source image url from giphy
+- create an array storing the location of each image
+
+Display 12 pictures
+- 
+
+const array = [0,1,2,3,4,5,6,7,8,9,10,11];
+
+for (let i = array.length - 1; i > 0; i-- ) {
+
+let ranIndex =  Math.floor(Math.random()*12)
+
+let temp = array[i]
+array[i] = array[ranIndex]
+array[ranIndex] = temp
+}
