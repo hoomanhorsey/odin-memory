@@ -1,5 +1,5 @@
 #root {
-  max-width: 2480px;
+  /* max-width: 100%; */
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -8,7 +8,7 @@
 
 
 .card {
-  padding: 3em;
+  padding: 3cap;
 }
 
 .gameBoard {
@@ -18,7 +18,7 @@
   /* gap: 10px; optional spacing between squares */
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 10px;
+  gap: 30px;
   width: 100%;
 }
 .gameCard {
@@ -29,8 +29,6 @@
   border-radius: 5%;
   padding: 10px;
   margin: 10px;
-  /* height: 200px;
-  width: 200px; */
   /* flex: 1 1 calc(100% / 6 - 10px); /* allow up to 6 per row */
   /* max-width: calc(100% / 6 - 10px); /* prevent exceeding 6 per row */
   /* aspect-ratio: 1; makes it a square */
@@ -41,5 +39,15 @@
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
+  margin: 10px;
+  padding: 10px;
+  height: 100px; 
+  width: 100px;
+  border-radius: 25%;
+  
+}
 
+
+.scoreBoard {
+  padding: 20px;
 }

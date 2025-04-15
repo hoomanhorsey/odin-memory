@@ -1,19 +1,32 @@
-import { getRandomArray } from "./randomArray";
+import { useState } from "react";
+
+import { getRandomArray, addSelectedArray } from "../utils/helpers";
 
 const array = getRandomArray();
 
-console.log(array);
-function handleCardClick(e) {
-  console.log(e.target.id);
-}
-
 function GameBoardRender({ array }) {
+  const [chosenCards, setChosenCards] = useState([]);
+  console.log(chosenCards);
+
+  function handleCardClick(e) {
+    console.log(e.target.id);
+
+    addSelectedArray(e.target.id);
+    setChosenCards([...chosenCards, e.target.id]);
+    console.log(chosenCards);
+  }
+
   const board = [];
   for (let i = 0; i < array.length; i++) {
     board.push(
-      <div className="gameCard" id={array[i]} onClick={handleCardClick}>
+      <div
+        className="gameCard"
+        key={array[i].id}
+        id={array[i].id}
+        onClick={handleCardClick}
+      >
         {" "}
-        Picture of cat and: {array[i]}{" "}
+        {array[i].id} {array[i].src}
       </div>
     );
   }

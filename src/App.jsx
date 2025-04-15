@@ -3,7 +3,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
-import { getRandomArray } from "./components/randomArray";
+import { getRandomArray } from "./utils/helpers";
 
 import { GameBoardRender } from "./components/gameBoard";
 function App() {
@@ -13,18 +13,27 @@ function App() {
 
   return (
     <>
-      <div>
-        <h1>Memory Game</h1>
-      </div>
-      <div className="gameBoard">
-        <GameBoardRender array={array} />
-      </div>
+      <header>
+        <div>
+          <h1>Memory Game</h1>
+        </div>
+        <div className="scoreBoard">
+          <h2>Score</h2>
+          <div>Score: </div>
+          <div>Best Score</div>
+        </div>
+      </header>
+      <main>
+        <div className="gameBoard">
+          <GameBoardRender array={array} />
+        </div>
 
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
+        <div className="card">
+          <button onClick={() => setCount((count) => count + 1)}>
+            count is {count}
+          </button>
+        </div>
+      </main>
     </>
   );
 }
