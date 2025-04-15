@@ -36,7 +36,6 @@ function getRandomArray() {
     array[i] = array[ranIndex];
     array[ranIndex] = temp;
   }
-  console.table(array);
 
   return array;
 }

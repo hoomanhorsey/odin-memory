@@ -1,15 +1,10 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
 
-import { getRandomArray } from "./utils/helpers";
+import "./App.css";
 
 import { GameBoardRender } from "./components/gameBoard";
 function App() {
   const [count, setCount] = useState(0);
-
-  const array = getRandomArray();
 
   return (
     <>
@@ -25,7 +20,7 @@ function App() {
       </header>
       <main>
         <div className="gameBoard">
-          <GameBoardRender array={array} />
+          <GameBoardRender />
         </div>
 
         <div className="card">
