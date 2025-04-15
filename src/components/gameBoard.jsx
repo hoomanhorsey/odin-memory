@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { getRandomArray, addSelectedArray } from "../utils/helpers";
+import { getRandomArray } from "../utils/helpers";
 
 const array = getRandomArray();
 
@@ -11,9 +11,12 @@ function GameBoardRender({ array }) {
   function handleCardClick(e) {
     console.log(e.target.id);
 
-    addSelectedArray(e.target.id);
+    // addSelectedArray(e.target.id);
     setChosenCards([...chosenCards, e.target.id]);
     console.log(chosenCards);
+    console.log("needs to check if chosen cards is the same");
+
+    console.log(chosenCards.find((number) => e.target.id === number));
   }
 
   const board = [];

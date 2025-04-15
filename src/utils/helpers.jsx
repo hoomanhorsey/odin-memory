@@ -41,8 +41,4 @@ function getRandomArray() {
   return array;
 }
 
-function addSelectedArray(id) {
-  console.log(id);
-}
-
-export { getRandomArray, addSelectedArray };
+export { getRandomArray };
