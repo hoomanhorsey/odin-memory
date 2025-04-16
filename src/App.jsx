@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import "./App.css";
 
-import { GameBoardRender } from "./components/gameBoard";
+import { GameBoardRender, GameContainer } from "./components/gameBoard";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -19,8 +19,9 @@ function App() {
         </div>
       </header>
       <main>
-        <div className="gameBoard">
-          <GameBoardRender />
+        <div className="gameBoard">{/* <GameBoardRender /> */}</div>
+        <div>
+          <GameContainer />
         </div>
 
         <div className="card">
