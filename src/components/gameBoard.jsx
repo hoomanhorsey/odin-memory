@@ -11,7 +11,6 @@ function GameContainer() {
 
   return (
     <>
-      <div>A new one</div>
       <div>
         {" "}
         <Score score={score} highScore={highScore} />
@@ -118,54 +117,40 @@ function GameBoardRenderNested({
   return <>{board}</>;
 }
 
-function GameBoardRender() {
-  const array = getRandomArray();
-  const [chosenCards, setChosenCards] = useState([]);
-  const [score, setScore] = useState(0);
-  // console.log("score " + score);
-
-  // console.log(chosenCards);
-
-  function handleCardClick(e) {
-    console.log(e.target.id);
-
-    setChosenCards([...chosenCards, e.target.id]);
-    // console.log(chosenCards);
-    // console.log("needs to check if chosen cards is the same");
-
-    // console.log(chosenCards.find((number) => e.target.id === number));
-
-    if (chosenCards.includes(e.target.id)) {
-      setScore(0);
-      setChosenCards([]);
-      // console.log("Repeated");
-      // - reset board
-      // - reset score
-      // - check high score, and replace if higher
-    } else {
-      // console.log("No repeats");
-      setScore(score + 1);
-
-      // score++
-      // carry on. reset board
-    }
-  }
-  const board = [];
-  for (let i = 0; i < array.length; i++) {
-    board.push(
-      <div
-        className="gameCard"
-        key={array[i].id}
-        id={array[i].id}
-        onClick={handleCardClick}
-      >
-        {" "}
-        {array[i].id} {array[i].src}
-      </div>
-    );
-  }
-
-  return <>{board}</>;
+function getImageUrl() {
+  fetch(
+    "https://api.giphy.com/v1/gifs/translate?api_key=IjTmlnWb2C2AVGtWnglFoUWx4P679A6P&s=cats",
+    { mode: "cors" }
+  )
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (response) {
+      console.log(response.data.images.original.url);
+    });
+  return response.data.images.original.url;
 }
 
-export { GameBoardRender, GameContainer };
+function ImagePlay() {
+  let temp = getImageUrl;
+  fetch(
+    "https://api.giphy.com/v1/gifs/translate?api_key=IjTmlnWb2C2AVGtWnglFoUWx4P679A6P&s=cats",
+    { mode: "cors" }
+  )
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (response) {
+      let url = response.data.images.original.url;
+      console.log(response.data.images.original.url);
+      console.log(temp);
+    });
+
+  return (
+    <>
+      <img></img>{" "}
+    </>
+  );
+}
+
+export { GameContainer, ImagePlay };

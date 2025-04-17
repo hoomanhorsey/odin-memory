@@ -13,11 +13,12 @@
 
 .gameBoard {
   /* display: flex;
-  flex-wrap: wrap;
   justify-content: space-between; or 'space-evenly' / 'center' depending on look */
   /* gap: 10px; optional spacing between squares */
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+
+  /* grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); */
   gap: 30px;
   width: 100%;
 }
@@ -41,8 +42,8 @@
   font-size: 1rem;
   margin: 10px;
   padding: 10px;
-  height: 100px; 
-  width: 100px;
+  min-height: 100px; 
+  min-width: 100px;
   border-radius: 25%;
   
 }
