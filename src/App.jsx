@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import "./App.css";
 
-import { GameContainer, ImagePlay } from "./components/gameBoard";
+import { GameContainer } from "./components/gameBoard";
 function App() {
   return (
     <>
@@ -16,9 +16,7 @@ function App() {
         <div>
           <GameContainer />
         </div>
-        <div>
-          <ImagePlay />
-        </div>
+        <div>{/* <ImagePlay /> */}</div>
       </main>
     </>
   );

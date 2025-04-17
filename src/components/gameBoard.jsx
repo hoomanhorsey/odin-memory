@@ -46,8 +46,20 @@ function GameBoardRenderNested({
   gameOver,
   setGameOver,
 }) {
-  const array = getRandomArray();
+  // const array = getRandomArray();
+  const [array, setArray] = useState([]); // Use state for the random array
+
   const [chosenCards, setChosenCards] = useState([]);
+
+  // Fetch the random array when the component mounts
+  useEffect(() => {
+    const fetchArray = async () => {
+      const result = await getRandomArray(); // Get the random array
+      setArray(result); // Update the state with the new array
+    };
+
+    fetchArray(); // Call the function to fetch the array
+  }, []); // Empty dependency array means this effect runs only once when the component mounts
 
   console.log(chosenCards);
   console.log("score: " + score);
@@ -117,40 +129,4 @@ function GameBoardRenderNested({
   return <>{board}</>;
 }
 
-function getImageUrl() {
-  fetch(
-    "https://api.giphy.com/v1/gifs/translate?api_key=IjTmlnWb2C2AVGtWnglFoUWx4P679A6P&s=cats",
-    { mode: "cors" }
-  )
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (response) {
-      console.log(response.data.images.original.url);
-    });
-  return response.data.images.original.url;
-}
-
-function ImagePlay() {
-  let temp = getImageUrl;
-  fetch(
-    "https://api.giphy.com/v1/gifs/translate?api_key=IjTmlnWb2C2AVGtWnglFoUWx4P679A6P&s=cats",
-    { mode: "cors" }
-  )
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (response) {
-      let url = response.data.images.original.url;
-      console.log(response.data.images.original.url);
-      console.log(temp);
-    });
-
-  return (
-    <>
-      <img></img>{" "}
-    </>
-  );
-}
-
-export { GameContainer, ImagePlay };
+export { GameContainer };

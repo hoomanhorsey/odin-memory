@@ -13,7 +13,7 @@
 //   return array;
 // }
 
-function getRandomArray() {
+async function getRandomArray() {
   const array = [
     { id: 0, src: "url - calico" },
     { id: 1, src: "url - tuxedo" },
@@ -37,7 +37,27 @@ function getRandomArray() {
     array[ranIndex] = temp;
   }
 
+  for (let i = 0; i < array.length; i++) {
+    try {
+      array[i].url = await getImageUrl();
+    } catch (error) {
+      array[i].url = "https://placekitten.com/400/300"; // fallback placeholder
+    }
+  }
+
+  console.table(array);
   return array;
+}
+
+async function getImageUrl() {
+  const response = await fetch(
+    "https://api.giphy.com/v1/gifs/translate?api_key=IjTmlnWb2C2AVGtWnglFoUWx4P679A6P&s=cats",
+    { mode: "cors" }
+  );
+  const imageData = await response.json();
+
+  let src = imageData.data.images.original.url;
+  console.log(src);
 }
 
 export { getRandomArray };
