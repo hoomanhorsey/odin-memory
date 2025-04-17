@@ -41,7 +41,8 @@ async function getRandomArray() {
     try {
       array[i].url = await getImageUrl();
     } catch (error) {
-      array[i].url = "https://placekitten.com/400/300"; // fallback placeholder
+      array[i].url =
+        "https://upload.wikimedia.org/wikipedia/commons/6/61/Cute_cat_extends_its_antennae.jpg"; // fallback placeholder
     }
   }
 

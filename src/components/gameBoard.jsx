@@ -122,6 +122,7 @@ function GameBoardRenderNested({
       >
         {" "}
         {array[i].id} {array[i].src}
+        <img src={array[i].url} width="100" height="150"></img>
       </div>
     );
   }
