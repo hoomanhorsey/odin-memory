@@ -57,7 +57,7 @@ async function getImageUrl() {
   );
   const imageData = await response.json();
 
-  let src = imageData.data.images.original.url;
+  return imageData.data.images.original.url;
   console.log(src);
 }
 
