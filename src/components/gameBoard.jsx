@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 
-import { getRandomArray } from "../utils/helpers";
+import { getRandomArray, populateArray } from "../utils/helpers";
 
 function GameContainer() {
-  const array = getRandomArray();
-  const [chosenCards, setChosenCards] = useState([]);
+  const array = populateArray();
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
@@ -47,34 +46,31 @@ function GameBoardRenderNested({
   setGameOver,
 }) {
   // const array = getRandomArray();
-  const [array, setArray] = useState([]); // Use state for the random array
 
+  // const [array, setArray] = useState([]); // Use state for the random array
   const [chosenCards, setChosenCards] = useState([]);
 
-  // Fetch the random array when the component mounts
-  useEffect(() => {
-    const fetchArray = async () => {
-      const result = await getRandomArray(); // Get the random array
-      setArray(result); // Update the state with the new array
-    };
+  const array = populateArray();
+  getRandomArray(array);
 
-    fetchArray(); // Call the function to fetch the array
-  }, []); // Empty dependency array means this effect runs only once when the component mounts
+  // // Asyncversion Fetch the random array when the component mounts
+  // useEffect((array) => {
+  //   const fetchArray = async () => {
+  //     const result = await getRandomArray(array); // Get the random array
+  //     setArray(result); // Update the state with the new array
+  //   };
 
-  console.log(chosenCards);
-  console.log("score: " + score);
-  console.log("highscore: " + highScore);
+  //   fetchArray(); // Call the function to fetch the array
+  // }, []); // Empty dependency array means this effect runs only once when the component mounts
 
-  // useEffect(() => {
-  //   setGameOver(false);
-  //   console.log("called game over", gameOver);
-  //   if (score > highScore) setHighScore(score);
-  //   setScore(0);
-  //   setChosenCards([]);
-  //   console.log("sets high score");
-  // }, [gameOver]);
-
-  // useEffect(() => console.log("placeeholder"));
+  console.log(
+    "chosenCards: " +
+      chosenCards +
+      ", Score: " +
+      score +
+      ", HighScore: " +
+      highScore
+  );
 
   function handleGameOver() {
     if (score > highScore) setHighScore(score);
@@ -84,35 +80,18 @@ function GameBoardRenderNested({
   }
 
   function handleCardClick(e) {
-    console.log(e.target.id);
-
+    console.log("chosen card: " + e.target.id);
     setChosenCards([...chosenCards, e.target.id]);
-    console.log(chosenCards);
-    console.log("needs to check if chosen cards is the same");
-
-    // console.log(chosenCards.find((number) => e.target.id === number));
-
     if (chosenCards.includes(e.target.id)) {
-      // setScore(0);
-      // setChosenCards([]);
       console.log("Repeated");
-      // setGameOver(true);
       handleGameOver();
-
-      // - reset board
-      // - reset score
-      // - check high score, and replace if higher
-      // trigger gameOver
     } else {
       console.log("No repeats");
       setScore((prev) => prev + 1);
-
-      // score++
-      // carry on. reset board
     }
   }
   const board = [];
-  for (let i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length - 1; i++) {
     board.push(
       <div
         className="gameCard"
