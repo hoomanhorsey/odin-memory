@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { getRandomArray, populateArray } from "../utils/helpers";
 
 function GameContainer() {
-  const array = populateArray();
+  // const array = populateArray();
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
@@ -45,13 +45,24 @@ function GameBoardRenderNested({
   gameOver,
   setGameOver,
 }) {
-  // const array = getRandomArray();
-
+  // Notsure i need state for random array.
   // const [array, setArray] = useState([]); // Use state for the random array
+
   const [chosenCards, setChosenCards] = useState([]);
 
-  const array = populateArray();
+  const [array, setArray] = useState([]);
+
+  useEffect(() => {
+    async function fetchGifs() {
+      const array = await populateArray();
+      setArray(array);
+    }
+    fetchGifs();
+  }, [gameOver]);
+
+  // const array = populateArray();
   getRandomArray(array);
+  console.table(array);
 
   // // Asyncversion Fetch the random array when the component mounts
   // useEffect((array) => {
