@@ -35,7 +35,7 @@
   /* aspect-ratio: 1; makes it a square */
   /* background-color: lightblue; just for visual */ */ */ */
   aspect-ratio: 1; /* Keeps it square */
-  background-color: lightblue;
+  /* background-color: lightblue; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,4 +51,10 @@
 
 .scoreBoard {
   padding: 20px;
+}
+
+.catImage {
+  width:200px; height:250px;border-radius: 15%;
+
+
 }

@@ -62,7 +62,7 @@ function GameBoardRenderNested({
 
   // const array = populateArray();
   getRandomArray(array);
-  console.table(array);
+  // console.table(array);
 
   // // Asyncversion Fetch the random array when the component mounts
   // useEffect((array) => {
@@ -111,8 +111,8 @@ function GameBoardRenderNested({
         onClick={handleCardClick}
       >
         {" "}
-        {array[i].id} {array[i].src}
-        <img src={array[i].url} width="100" height="150"></img>
+        {array[i].id}
+        <img className="catImage" id={array[i].id} src={array[i].url}></img>
       </div>
     );
   }
