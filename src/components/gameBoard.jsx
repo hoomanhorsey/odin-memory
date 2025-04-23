@@ -1,9 +1,31 @@
 import { useState, useEffect } from "react";
 
 import { getRandomArray, populateArray } from "../utils/helpers";
+import React from "react";
+
+function ReactLoadingText() {
+  const [dots, setDots] = useState("");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots((prev) => (prev.length < 3 ? prev + "." : ""));
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return <p>Loading {dots}</p>;
+}
+
+function GameHeader() {
+  return (
+    <>
+      <h1>Cato Memory Game-o</h1>
+    </>
+  );
+}
 
 function GameContainer() {
-  // const array = populateArray();
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
@@ -11,7 +33,6 @@ function GameContainer() {
   return (
     <>
       <div>
-        {" "}
         <Score score={score} highScore={highScore} />
       </div>
       <div className="gameBoard">
@@ -49,12 +70,12 @@ function GameBoardRenderNested({
   // const [array, setArray] = useState([]); // Use state for the random array
 
   const [chosenCards, setChosenCards] = useState([]);
-
   const [array, setArray] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchGifs() {
-      const array = await populateArray();
+      const array = await populateArray(setLoading);
       setArray(array);
     }
     fetchGifs();
@@ -101,6 +122,7 @@ function GameBoardRenderNested({
       setScore((prev) => prev + 1);
     }
   }
+
   const board = [];
   for (let i = 0; i < array.length - 1; i++) {
     board.push(
@@ -111,13 +133,31 @@ function GameBoardRenderNested({
         onClick={handleCardClick}
       >
         {" "}
-        {array[i].id}
+        {/* This causes the array[id] to be displayed */}
+        {/* {array[i].id} */}
         <img className="catImage" id={array[i].id} src={array[i].url}></img>
       </div>
     );
   }
+  console.log(loading);
 
-  return <>{board}</>;
+  return (
+    <>
+      {loading ? (
+        <>
+          <p className="loading-text">Loading images....</p>
+          <p>
+            {" "}
+            <ReactLoadingText />
+          </p>
+        </>
+      ) : (
+        <>{board}</>
+      )}
+    </>
+  );
+
+  // return <>{board}</>;
 }
 
-export { GameContainer };
+export { GameContainer, GameHeader };

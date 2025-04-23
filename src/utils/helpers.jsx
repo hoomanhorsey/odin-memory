@@ -34,7 +34,8 @@ function declareArray() {
 
 // Remember to make this async, when you turn the try back on
 
-async function populateArray() {
+async function populateArray(setLoading) {
+  setLoading(true);
   const array = declareArray();
   for (let i = 0; i < array.length; i++) {
     try {
@@ -44,6 +45,9 @@ async function populateArray() {
         "https://upload.wikimedia.org/wikipedia/commons/6/61/Cute_cat_extends_its_antennae.jpg"; // fallback placeholder
     }
   }
+
+  setLoading(false);
+
   // console.table(array);
 
   return array;
@@ -83,6 +87,8 @@ async function getImageUrl() {
   });
 
   const imageData = await response.json();
+
+  console.log("loading");
 
   console.log(imageData);
   console.log(imageData[0].url);
