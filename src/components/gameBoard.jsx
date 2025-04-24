@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { getRandomArray, populateArray } from "../utils/helpers";
+import { randomiseArrayOrder, populateArrayWithImages } from "../utils/helpers";
 import React from "react";
 
 function ReactLoadingText() {
@@ -14,13 +14,14 @@ function ReactLoadingText() {
     return () => clearInterval(interval);
   }, []);
 
-  return <p>Loading {dots}</p>;
+  return <h3>Herding catos {dots}</h3>;
 }
 
 function GameHeader() {
   return (
     <>
       <h1>Cato Memory Game-o</h1>
+      <h3>Try to click on each of the 12 cato without selecting any twice.</h3>
     </>
   );
 }
@@ -32,7 +33,7 @@ function GameContainer() {
 
   return (
     <>
-      <div>
+      <div className="scorePanel">
         <Score score={score} highScore={highScore} />
       </div>
       <div className="gameBoard">
@@ -52,12 +53,32 @@ function GameContainer() {
 function Score({ score, highScore }) {
   return (
     <>
-      <div>Score: {score} </div>
-      <div>High Score: {highScore} </div>
+      <div>Score : {score} </div>
+      <div>High Score : {highScore} </div>
     </>
   );
 }
 
+function createBoard(array, handleCardClick) {
+  const board = [];
+
+  for (let i = 0; i < array.length; i++) {
+    board.push(
+      <div
+        className="gameCard"
+        key={array[i].id}
+        id={array[i].id}
+        onClick={handleCardClick}
+      >
+        {" "}
+        {/* This causes the array[id] to be displayed */}
+        {/* {array[i].id} */}
+        <img className="catImage" id={array[i].id} src={array[i].url}></img>
+      </div>
+    );
+  }
+  return board;
+}
 function GameBoardRenderNested({
   score,
   setScore,
@@ -75,25 +96,13 @@ function GameBoardRenderNested({
 
   useEffect(() => {
     async function fetchGifs() {
-      const array = await populateArray(setLoading);
+      const array = await populateArrayWithImages(setLoading);
       setArray(array);
     }
     fetchGifs();
   }, [gameOver]);
 
-  // const array = populateArray();
-  getRandomArray(array);
-  // console.table(array);
-
-  // // Asyncversion Fetch the random array when the component mounts
-  // useEffect((array) => {
-  //   const fetchArray = async () => {
-  //     const result = await getRandomArray(array); // Get the random array
-  //     setArray(result); // Update the state with the new array
-  //   };
-
-  //   fetchArray(); // Call the function to fetch the array
-  // }, []); // Empty dependency array means this effect runs only once when the component mounts
+  randomiseArrayOrder(array);
 
   console.log(
     "chosenCards: " +
@@ -122,34 +131,25 @@ function GameBoardRenderNested({
       setScore((prev) => prev + 1);
     }
   }
+  console.table(array);
 
-  const board = [];
-  for (let i = 0; i < array.length - 1; i++) {
-    board.push(
-      <div
-        className="gameCard"
-        key={array[i].id}
-        id={array[i].id}
-        onClick={handleCardClick}
-      >
-        {" "}
-        {/* This causes the array[id] to be displayed */}
-        {/* {array[i].id} */}
-        <img className="catImage" id={array[i].id} src={array[i].url}></img>
-      </div>
-    );
-  }
-  console.log(loading);
+  const board = createBoard(array, handleCardClick);
 
   return (
     <>
       {loading ? (
         <>
-          <p className="loading-text">Loading images....</p>
-          <p>
-            {" "}
-            <ReactLoadingText />
-          </p>
+          <div className="loadingElement">
+            {/* <div>
+              <ReactLoadingText />
+            </div> */}
+            <div className="loadingElement">
+              <div>Please wait...</div>
+              <div>
+                <h3 className="loading-text">Herding random catos </h3>
+              </div>
+            </div>
+          </div>
         </>
       ) : (
         <>{board}</>

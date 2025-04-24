@@ -6,6 +6,19 @@
 }
 
 
+body{
+  background-color: paleturquoise;
+}
+
+header {
+  padding: 20px;
+  border-radius: 5%;
+
+
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.scorePanel{padding:20px; font-size: larger;}
 
 .card {
   padding: 3cap;
@@ -17,10 +30,12 @@
   /* gap: 10px; optional spacing between squares */
   display: flex;
   flex-wrap: wrap;
-
+  align-items: center;
+  justify-content: center;
   /* grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); */
   gap: 30px;
   width: 100%;
+  
 }
 .gameCard {
   /* display: flex;
@@ -34,9 +49,10 @@
   /* max-width: calc(100% / 6 - 10px); /* prevent exceeding 6 per row */
   /* aspect-ratio: 1; makes it a square */
   /* background-color: lightblue; just for visual */ */ */ */
-  aspect-ratio: 1; /* Keeps it square */
+  /* aspect-ratio: 1; Keeps it square */
   /* background-color: lightblue; */
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
@@ -44,8 +60,7 @@
   padding: 10px;
   min-height: 100px; 
   min-width: 100px;
-  border-radius: 25%;
-  
+  /* border-radius: 25%; */
 }
 
 
@@ -54,13 +69,22 @@
 }
 
 .catImage {
-  width:200px; height:250px;border-radius: %;
-
-
+  display: flex;
+  width:200px; height:250px;
+  border-radius: 15%;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
+.loadingElement{ 
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
 
 .loading-text{
+  align-items: center;
   animation: fade 1s infinite;
 }
 

@@ -1,18 +1,3 @@
-// function getRandomArray() {
-//   const array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-
-//   for (let i = array.length - 1; i > 0; i--) {
-//     let ranIndex = Math.floor(Math.random() * (i + 1));
-
-//     let temp = array[i];
-//     array[i] = array[ranIndex];
-//     array[ranIndex] = temp;
-//   }
-//   console.table(array);
-
-//   return array;
-// }
-
 function declareArray() {
   const array = [
     { id: 0 },
@@ -27,14 +12,11 @@ function declareArray() {
     { id: 9 },
     { id: 10 },
     { id: 11 },
-    { id: 12 },
   ];
   return array;
 }
 
-// Remember to make this async, when you turn the try back on
-
-async function populateArray(setLoading) {
+async function populateArrayWithImages(setLoading) {
   setLoading(true);
   const array = declareArray();
   for (let i = 0; i < array.length; i++) {
@@ -45,13 +27,50 @@ async function populateArray(setLoading) {
         "https://upload.wikimedia.org/wikipedia/commons/6/61/Cute_cat_extends_its_antennae.jpg"; // fallback placeholder
     }
   }
-
   setLoading(false);
-
-  // console.table(array);
-
   return array;
 }
+
+function randomiseArrayOrder(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let ranIndex = Math.floor(Math.random() * (i + 1));
+    let temp = array[i];
+    array[i] = array[ranIndex];
+    array[ranIndex] = temp;
+  }
+  return array;
+}
+
+async function getImageUrl() {
+  const response = await fetch("https://api.thecatapi.com/v1/images/search", {
+    mode: "cors",
+  });
+  const imageData = await response.json();
+  return imageData[0].url;
+}
+
+export { randomiseArrayOrder, populateArrayWithImages };
+//
+//
+//
+//
+//
+//
+
+// function getRandomArray() {
+//   const array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+//   for (let i = array.length - 1; i > 0; i--) {
+//     let ranIndex = Math.floor(Math.random() * (i + 1));
+
+//     let temp = array[i];
+//     array[i] = array[ranIndex];
+//     array[ranIndex] = temp;
+//   }
+//   console.table(array);
+
+//   return array;
+// }
 
 // Remember to make this async, when you turn the try back on
 function populateArraytest() {
@@ -70,44 +89,6 @@ function populateArraytest() {
   console.table(array);
   return array;
 }
-
-function getRandomArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    let ranIndex = Math.floor(Math.random() * (i + 1));
-    let temp = array[i];
-    array[i] = array[ranIndex];
-    array[ranIndex] = temp;
-  }
-  return array;
-}
-
-async function getImageUrl() {
-  const response = await fetch("https://api.thecatapi.com/v1/images/search", {
-    mode: "cors",
-  });
-
-  const imageData = await response.json();
-
-  console.log("loading");
-
-  console.log(imageData);
-  console.log(imageData[0].url);
-  return imageData[0].url;
-}
-
-// https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=beng&api_key=live_yACuZwjsBr1D2jU3m9r0w3yWqqTD7fSp4v3Zg4t2y7chrBv5rnAAi35V3sOeUPp9
-
-//  return imageData.data.images.original.url;
-
-// "https://api.giphy.com/v1/gifs/translate?api_key=IjTmlnWb2C2AVGtWnglFoUWx4P679A6P&s=cats",
-
-export { getRandomArray, populateArray };
-//
-//
-//
-//
-//
-//
 
 async function getRandomArrayOld() {
   const array = [
