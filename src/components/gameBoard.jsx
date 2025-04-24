@@ -21,7 +21,9 @@ function GameHeader() {
   return (
     <>
       <h1>Cato Memory Game-o</h1>
-      <h3>Try to click on each of the 12 cato without selecting any twice.</h3>
+      <h3>
+        You try click on each of the 12 cato without selecting any cato twice.
+      </h3>
     </>
   );
 }
@@ -144,9 +146,11 @@ function GameBoardRenderNested({
               <ReactLoadingText />
             </div> */}
             <div className="loadingElement">
-              <div>Please wait...</div>
+              <div>You please wait!</div>
               <div>
-                <h3 className="loading-text">Herding random catos </h3>
+                <h3 className="loading-text">
+                  Computer is herding random catos{" "}
+                </h3>
               </div>
             </div>
           </div>
