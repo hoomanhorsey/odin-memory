@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { GameContainer, GameHeader } from "./components/gameBoard";
+import { GameContainer, GameHeader } from "./components/gameContainer";
 function App() {
   return (
     <>
