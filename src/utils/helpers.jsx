@@ -49,7 +49,46 @@ async function getImageUrl() {
   return imageData[0].url;
 }
 
-export { randomiseArrayOrder, populateArrayWithImages };
+function updateGameStateField(setGameState, field, value) {
+  setGameState((prev) => ({
+    ...prev,
+    // [field]: value,
+    [field]: typeof value === "function" ? value(prev[field]) : value,
+  }));
+}
+
+function OldupdateGameStateFields(setGameState, newFields) {
+  setGameState((prev) => ({
+    ...prev,
+    ...newFields,
+  }));
+}
+
+function updateGameStateFields(setGameState, newFields) {
+  setGameState((prev) => {
+    const updatedFields = {};
+
+    for (const key in newFields) {
+      const valueOrUpdater = newFields[key];
+      updatedFields[key] =
+        typeof valueOrUpdater === "function"
+          ? valueOrUpdater(prev[key])
+          : valueOrUpdater;
+    }
+
+    return {
+      ...prev,
+      ...newFields,
+    };
+  });
+}
+
+export {
+  randomiseArrayOrder,
+  populateArrayWithImages,
+  updateGameStateField,
+  updateGameStateFields,
+};
 //
 //
 //
