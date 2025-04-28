@@ -7,16 +7,32 @@ import {
   updateGameStateFields,
 } from "../utils/helpers.jsx";
 
-function StartButton({ gameState, gameStarted, setGameState }) {
+function StartButton({
+  gameState,
+  setGameState,
+  setElapsedTime,
+  setChosenCards,
+}) {
   function handleStartButton() {
     console.log("pressing start");
-    // updateGameStateField(setGameState, "gameStarted", true);
-    updateGameStateField(setGameState, "gameStatus", "running");
+
+    // resets chosenCard array
+    setChosenCards([]);
+
+    setElapsedTime(0);
+
+    // change in state results in: randomised card array, makes cards active, starts timer
+    updateGameStateFields(setGameState, {
+      score: 0,
+      gameWon: false,
+      gameStatus: "running",
+    });
   }
 
   function handleResetButton() {
     console.log("pressing reset");
-    // updateGameStateField(setGameState, "gameStarted", false);
+
+    // change in state results in: makes cards inactive, pauses timer
     updateGameStateField(setGameState, "gameStatus", "idle");
   }
 
@@ -32,53 +48,37 @@ function StartButton({ gameState, gameStarted, setGameState }) {
     return (
       <>
         <button onClick={handleResetButton} className="startBtn">
-          Restart
+          Reset
         </button>
       </>
     );
   }
-
-  // if (gameStarted === false) {
-  //   return (
-  //     <>
-  //       <button onClick={handleStartButton} className="startBtn">
-  //         Start
-  //       </button>
-  //     </>
-  //   );
-  // } else {
-  //   return (
-  //     <>
-  //       <button onClick={handleResetButton} className="startBtn">
-  //         Restart
-  //       </button>
-  //     </>
-  //   );
-  // }
 }
 
-function GameBoard({ gameState, setGameState, array, setArray }) {
-  // Notsure i need state for random array.
-  // const [array, setArray] = useState([]); // Use state for the random array
-
-  const [chosenCards, setChosenCards] = useState([]);
-  // const [array, setArray] = useState([]);
+function GameBoard({
+  gameState,
+  setGameState,
+  array,
+  setArray,
+  chosenCards,
+  setChosenCards,
+}) {
   const [loading, setLoading] = useState(true);
 
-  // Initial gameBoard setup and render
+  // Initial gameBoard setup with fresh fetched urls
+  // NOTE: SHould this be lifted to the game container????
   useEffect(() => {
     async function fetchGifs() {
       const tempArray = await populateArrayWithImages(setLoading);
       setArray(tempArray);
-      // handleGameOver();
       console.log("fetch urls effect called");
     }
     fetchGifs();
-  }, []); //Note this is launching just on render, it isn't launching on gameReset
+  }, []); //Launches on mount only.
 
   // Listens for game over due to losing
   useEffect(() => {
-    handleGameOver();
+    handleGameLost();
   }, [gameState.gameOver]);
 
   // Listens for game win.
@@ -98,18 +98,19 @@ function GameBoard({ gameState, setGameState, array, setArray }) {
 
   // Randomises cards
   useEffect(() => {
-    randomiseArrayOrder(array);
+    if (gameState.gameStatus === "running") {
+      randomiseArrayOrder(array);
+    }
   }, [gameState.gameStatus]);
 
-  function handleGameOver() {
+  function handleGameLost() {
     const updatedHighScore = Math.max(gameState.highScore, gameState.score);
-    setChosenCards([]);
+    // setChosenCards([]);
     updateGameStateFields(setGameState, {
       gameOver: false,
       score: 0,
       highScore: updatedHighScore,
       gameStatus: "idle",
-      gameStarted: false,
     });
     console.log(updatedHighScore);
     alert("Wu-woah. You repeated yourself. Press start to try again");
@@ -128,7 +129,8 @@ function GameBoard({ gameState, setGameState, array, setArray }) {
 
     if (isRepeatedCard(chosenCards, id)) {
       console.log("Repeated");
-      updateGameStateField(setGameState, "gameOver", true);
+      updateGameStateField(setGameState, "gameStatus", "idle");
+      alert("gamelost");
     } else {
       setChosenCards([...chosenCards, e.target.id]);
       updateGameStateField(setGameState, "score", (prevScore) => prevScore + 1);

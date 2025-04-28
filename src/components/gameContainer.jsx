@@ -12,10 +12,10 @@ function GameContainer() {
     highScore: 0,
     gameOver: false,
     gameWon: false,
-    gameStarted: false,
     gameStatus: "idle",
   });
 
+  const [chosenCards, setChosenCards] = useState([]);
   // gameStatus can be 'idle', 'running', 'won', 'lost'
   const [elapsedTime, setElapsedTime] = useState(0);
 
@@ -25,9 +25,11 @@ function GameContainer() {
     <>
       <div>
         <StartButton
-          gameStarted={gameState.gameStarted}
           gameState={gameState}
           setGameState={setGameState}
+          setElapsedTime={setElapsedTime}
+          chosenCards={chosenCards}
+          setChosenCards={setChosenCards}
         />
       </div>
       <div className="scorePanel">
@@ -46,6 +48,8 @@ function GameContainer() {
           setGameState={setGameState}
           array={array}
           setArray={setArray}
+          chosenCards={chosenCards}
+          setChosenCards={setChosenCards}
         />
       </div>
     </>

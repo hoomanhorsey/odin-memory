@@ -23,7 +23,7 @@ function Timer({ gameState, elapsedTime, setElapsedTime }) {
         clearInterval(id);
       };
     } else {
-      setElapsedTime(0);
+      // setElapsedTime(0);
     }
   }, [gameState.gameStatus]);
 
