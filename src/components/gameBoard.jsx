@@ -7,20 +7,20 @@ import {
   updateGameStateFields,
 } from "../utils/helpers.jsx";
 
-function StartButton({ gameStarted, setGameState }) {
+function StartButton({ gameState, gameStarted, setGameState }) {
   function handleStartButton() {
     console.log("pressing start");
-    updateGameStateField(setGameState, "gameStarted", true);
+    // updateGameStateField(setGameState, "gameStarted", true);
+    updateGameStateField(setGameState, "gameStatus", "running");
   }
 
   function handleResetButton() {
     console.log("pressing reset");
-    updateGameStateField(setGameState, "gameStarted", false);
+    // updateGameStateField(setGameState, "gameStarted", false);
+    updateGameStateField(setGameState, "gameStatus", "idle");
   }
 
-  // console.log(gameStarted);
-
-  if (gameStarted === false) {
+  if (gameState.gameStatus === "idle") {
     return (
       <>
         <button onClick={handleStartButton} className="startBtn">
@@ -37,29 +37,51 @@ function StartButton({ gameStarted, setGameState }) {
       </>
     );
   }
+
+  // if (gameStarted === false) {
+  //   return (
+  //     <>
+  //       <button onClick={handleStartButton} className="startBtn">
+  //         Start
+  //       </button>
+  //     </>
+  //   );
+  // } else {
+  //   return (
+  //     <>
+  //       <button onClick={handleResetButton} className="startBtn">
+  //         Restart
+  //       </button>
+  //     </>
+  //   );
+  // }
 }
 
-function GameBoard({ gameState, setGameState, gameReset, setGameReset }) {
+function GameBoard({ gameState, setGameState, array, setArray }) {
   // Notsure i need state for random array.
   // const [array, setArray] = useState([]); // Use state for the random array
 
   const [chosenCards, setChosenCards] = useState([]);
-  const [array, setArray] = useState([]);
+  // const [array, setArray] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Initial gameBoard setup and render
   useEffect(() => {
     async function fetchGifs() {
-      const array = await populateArrayWithImages(setLoading);
-      setArray(array);
+      const tempArray = await populateArrayWithImages(setLoading);
+      setArray(tempArray);
       // handleGameOver();
+      console.log("fetch urls effect called");
     }
     fetchGifs();
-  }, [gameReset]); //Note this is launching just on render, it isn't launching on gameReset
+  }, []); //Note this is launching just on render, it isn't launching on gameReset
 
+  // Listens for game over due to losing
   useEffect(() => {
     handleGameOver();
   }, [gameState.gameOver]);
 
+  // Listens for game win.
   useEffect(() => {
     if (gameState.gameWon) {
       console.log(
@@ -74,19 +96,23 @@ function GameBoard({ gameState, setGameState, gameReset, setGameReset }) {
     }
   }, [gameState.gameWon]);
 
-  randomiseArrayOrder(array);
+  // Randomises cards
+  useEffect(() => {
+    randomiseArrayOrder(array);
+  }, [gameState.gameStatus]);
 
   function handleGameOver() {
     const updatedHighScore = Math.max(gameState.highScore, gameState.score);
-
+    setChosenCards([]);
     updateGameStateFields(setGameState, {
       gameOver: false,
       score: 0,
       highScore: updatedHighScore,
+      gameStatus: "idle",
+      gameStarted: false,
     });
     console.log(updatedHighScore);
-
-    setChosenCards([]);
+    alert("Wu-woah. You repeated yourself. Press start to try again");
   }
   function handleGameWon() {
     const updatedHighScore = Math.max(gameState.highScore, gameState.score);
@@ -107,13 +133,15 @@ function GameBoard({ gameState, setGameState, gameReset, setGameReset }) {
       setChosenCards([...chosenCards, e.target.id]);
       updateGameStateField(setGameState, "score", (prevScore) => prevScore + 1);
       console.log("No repeats: " + gameState.score);
+      randomiseArrayOrder(array);
+
       if (gameState.score === 1) {
         updateGameStateField(setGameState, "gameWon", true);
       }
     }
   }
 
-  const board = createBoard(array, handleCardClick);
+  const board = createBoard(gameState, array, handleCardClick);
 
   return (
     <>
@@ -137,7 +165,7 @@ function GameBoard({ gameState, setGameState, gameReset, setGameReset }) {
   // return <>{board}</>;
 }
 
-function createBoard(array, handleCardClick) {
+function createBoard(gameState, array, handleCardClick) {
   const board = [];
 
   for (let i = 0; i < array.length; i++) {
@@ -146,7 +174,7 @@ function createBoard(array, handleCardClick) {
         className="gameCard"
         key={array[i].id}
         id={array[i].id}
-        onClick={handleCardClick}
+        onClick={gameState.gameStatus === "running" ? handleCardClick : null}
       >
         {" "}
         {/* This causes the array[id] to be displayed */}

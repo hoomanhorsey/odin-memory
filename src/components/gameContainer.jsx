@@ -12,19 +12,21 @@ function GameContainer() {
     highScore: 0,
     gameOver: false,
     gameWon: false,
-    gameReset: false,
     gameStarted: false,
+    gameStatus: "idle",
   });
 
+  // gameStatus can be 'idle', 'running', 'won', 'lost'
   const [elapsedTime, setElapsedTime] = useState(0);
 
-  const [gameReset, setGameReset] = useState(false);
+  const [array, setArray] = useState([]);
 
   return (
     <>
       <div>
         <StartButton
           gameStarted={gameState.gameStarted}
+          gameState={gameState}
           setGameState={setGameState}
         />
       </div>
@@ -32,14 +34,18 @@ function GameContainer() {
         <Score score={gameState.score} highScore={gameState.highScore} />
       </div>
       <div>
-        <Timer elapsedTime={elapsedTime} setElapsedTime={setElapsedTime} />
+        <Timer
+          gameState={gameState}
+          elapsedTime={elapsedTime}
+          setElapsedTime={setElapsedTime}
+        />
       </div>
       <div className="gameBoard">
         <GameBoard
-          // gameReset={gameReset}
-          // setGameReset={setGameReset}
           gameState={gameState}
           setGameState={setGameState}
+          array={array}
+          setArray={setArray}
         />
       </div>
     </>
