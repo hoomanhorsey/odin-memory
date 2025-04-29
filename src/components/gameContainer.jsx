@@ -12,12 +12,18 @@ function GameContainer() {
     highScore: 0,
     gameOver: false,
     gameWon: false,
-    gameStatus: "idle",
+    gamePhase: "idle",
   });
 
   const [chosenCards, setChosenCards] = useState([]);
-  // gameStatus can be 'idle', 'running', 'won', 'lost'
-  const [elapsedTime, setElapsedTime] = useState(0);
+  // gamePhase can be 'idle', 'running', 'won', 'lost'
+
+  const [timer, setTimer] = useState({
+    elapsedTime: 0,
+    fastestTime: "No successful attempts",
+  });
+
+  const [loading, setLoading] = useState(true);
 
   const [array, setArray] = useState([]);
 
@@ -25,31 +31,35 @@ function GameContainer() {
     <>
       <div>
         <StartButton
+          setArray={setArray}
           gameState={gameState}
           setGameState={setGameState}
-          setElapsedTime={setElapsedTime}
+          loading={loading}
+          setLoading={setLoading}
           chosenCards={chosenCards}
           setChosenCards={setChosenCards}
+          setTimer={setTimer}
+          timer={timer}
         />
       </div>
       <div className="scorePanel">
         <Score score={gameState.score} highScore={gameState.highScore} />
       </div>
       <div>
-        <Timer
-          gameState={gameState}
-          elapsedTime={elapsedTime}
-          setElapsedTime={setElapsedTime}
-        />
+        <Timer gameState={gameState} timer={timer} setTimer={setTimer} />
       </div>
       <div className="gameBoard">
         <GameBoard
+          loading={loading}
+          setLoading={setLoading}
           gameState={gameState}
           setGameState={setGameState}
           array={array}
           setArray={setArray}
           chosenCards={chosenCards}
           setChosenCards={setChosenCards}
+          timer={timer}
+          setTimer={setTimer}
         />
       </div>
     </>

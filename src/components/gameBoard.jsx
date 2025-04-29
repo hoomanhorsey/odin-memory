@@ -8,16 +8,32 @@ import {
 } from "../utils/helpers.jsx";
 
 function StartButton({
+  setArray,
   gameState,
   setGameState,
-  setElapsedTime,
+  loading,
+  setLoading,
   setChosenCards,
+  timer,
+  setTimer,
 }) {
-  function handleStartButton() {
+  async function handleStartButton(option) {
+    // if (loading) return; // <-- prevent starting while loading
+    if (option === 2) {
+      console.log("new catos need to be retriefed");
+      const newCats = await populateArrayWithImages(setLoading);
+      setArray(newCats);
+    }
     console.log("pressing start");
 
+    console.table(gameState);
+
     setChosenCards([]); // Resets selected cards for new round
-    setElapsedTime(0); // Resets timer counter
+    // Resets timer counter
+    setTimer((prev) => ({
+      ...prev,
+      elapsedTime: 0,
+    }));
 
     // Setting gamePhase to 'running' triggers:
     // - Randomizing the game cards (via useEffect in main board)
@@ -35,16 +51,37 @@ function StartButton({
 
   function handleResetButton() {
     console.log("pressing reset");
+    console.table(gameState);
 
+    setTimer((prev) => ({
+      ...prev,
+      elapsedTime: 0,
+    }));
     // change in state results in: makes cards inactive, pauses timer
-    updateGameStateField(setGameState, "gamePhase", "idle");
+    updateGameStateFields(setGameState, {
+      score: 0,
+      gamePhase: "idle",
+    });
   }
 
   if (gameState.gamePhase === "idle") {
     return (
       <>
-        <button onClick={handleStartButton} className="startBtn">
+        <button onClick={() => handleStartButton(1)} className="startBtn">
           Start
+        </button>
+      </>
+    );
+  }
+  if (gameState.gameWon === true) {
+    return (
+      <>
+        <button onClick={() => handleStartButton(1)} className="startBtn">
+          Restart
+        </button>
+
+        <button onClick={() => handleStartButton(2)} className="startBtn">
+          Restart with different cats
         </button>
       </>
     );
@@ -62,13 +99,15 @@ function StartButton({
 function GameBoard({
   gameState,
   setGameState,
+  loading,
+  setLoading,
   array,
   setArray,
   chosenCards,
   setChosenCards,
+  timer,
+  setTimer,
 }) {
-  const [loading, setLoading] = useState(true);
-
   // Initial gameBoard setup with fresh fetched urls
   // NOTE: SHould this be lifted to the game container????
   useEffect(() => {
@@ -116,16 +155,37 @@ function GameBoard({
       highScore: updatedHighScore,
       gamePhase: "idle",
     });
-    console.log(updatedHighScore);
-    alert("Wu-woah. You repeated yourself. Press start to try again");
+
+    if (gameState.gamePhase === "running") {
+      console.log(updatedHighScore);
+      alert("Wu-woah. You repeated yourself. Press start to try again");
+    }
   }
   function handleGameWon() {
-    const updatedHighScore = Math.max(gameState.highScore, gameState.score);
-    console.log(updatedHighScore);
-
-    updateGameStateField(setGameState, "highScore", updatedHighScore);
     console.log("game has been won");
     alert("You won!!! ");
+
+    setTimer((prev) => ({
+      ...prev,
+      elapsedTime: 0,
+    }));
+    const updatedHighScore = Math.max(gameState.highScore, gameState.score);
+    console.log(updatedHighScore);
+    updateGameStateFields(setGameState, {
+      highScore: updatedHighScore,
+      gamePhase: "idle",
+    });
+
+    console.log(
+      "fastesttime: " + timer.fastestTime + " elapsedTime " + timer.elapsedTime
+    );
+
+    const updatedFastestTime =
+      timer.fastestTime === "No successful attempts"
+        ? timer.elapsedTime
+        : Math.min(timer.elapsedTime, timer.fastestTime);
+    console.log(Math.min(timer.elapsedTime, timer.fastestTime));
+    setTimer((prev) => ({ ...prev, fastestTime: updatedFastestTime }));
   }
 
   function handleCardClick(e) {
@@ -139,9 +199,9 @@ function GameBoard({
       setChosenCards([...chosenCards, e.target.id]);
       updateGameStateField(setGameState, "score", (prevScore) => prevScore + 1);
       console.log("No repeats: " + gameState.score);
-      randomiseArrayOrder(array);
+      setArray(randomiseArrayOrder(array));
 
-      if (gameState.score === 1) {
+      if (gameState.score === 2) {
         updateGameStateField(setGameState, "gameWon", true);
       }
     }
@@ -185,7 +245,13 @@ function createBoard(gameState, array, handleCardClick) {
         {" "}
         {/* This causes the array[id] to be displayed */}
         {array[i].id}
-        <img className="catImage" id={array[i].id} src={array[i].url}></img>
+        <img
+          className={`catImage ${
+            gameState.gamePhase === "running" ? "hoverEnabled" : ""
+          }`}
+          id={array[i].id}
+          src={array[i].url}
+        ></img>
       </div>
     );
   }

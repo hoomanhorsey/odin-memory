@@ -5,8 +5,7 @@
   text-align: center;
 }
 
-
-body{
+body {
   background-color: paleturquoise;
 }
 
@@ -17,12 +16,18 @@ header {
   border-radius: 15px;
   background-color: pink;
 
-  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
+    rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
+    rgba(240, 46, 170, 0.05) 25px 25px;
 
   /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
 }
 
-.scorePanel{padding:20px; margin: 20px;font-size: larger;}
+.scorePanel {
+  padding: 20px;
+  margin: 20px;
+  font-size: larger;
+}
 
 .card {
   padding: 3cap;
@@ -39,7 +44,6 @@ header {
   /* grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); */
   gap: 30px;
   width: 100%;
-  
 }
 .gameCard {
   /* display: flex;
@@ -52,7 +56,7 @@ header {
   /* flex: 1 1 calc(100% / 6 - 10px); /* allow up to 6 per row */
   /* max-width: calc(100% / 6 - 10px); /* prevent exceeding 6 per row */
   /* aspect-ratio: 1; makes it a square */
-  /* background-color: lightblue; just for visual */ */ */ */
+  /* background-color: lightblue; just for visual */
   /* aspect-ratio: 1; Ke     eps it square */
   /* background-color: lightblue; */
   display: flex;
@@ -62,16 +66,17 @@ header {
   font-size: 1rem;
   margin: 10px;
   padding: 10px;
-  min-height: 100px; 
+  min-height: 100px;
   min-width: 100px;
   /* border-radius: 25%; */
 }
 
-.startBtn{
+.startBtn {
   margin: 10px;
   padding: 10px;
-  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
-
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
+    rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
+    rgba(240, 46, 170, 0.05) 25px 25px;
 }
 .scoreBoard {
   padding: 20px;
@@ -79,23 +84,25 @@ header {
 
 .catImage {
   display: flex;
-  width:200px; height:250px;
+  width: 200px;
+  height: 250px;
   border-radius: 15%;
   /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
   /* box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; */
-  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
+    rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
+    rgba(240, 46, 170, 0.05) 25px 25px;
   /* box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px; */
   /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; */
 }
 
-.catImage:hover{
+.catImage.hoverEnabled:hover {
   transform: scale(1.05); /* Slightly enlarge the image */
-  background-color: black;
   /* z-index: 10; Ensure it's above other elements */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
 }
 
-.loadingElement{ 
+.loadingElement {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -103,13 +110,19 @@ header {
   justify-content: center;
 }
 
-.loading-text{
+.loading-text {
   align-items: center;
   animation: fade 1s infinite;
 }
 
-@keyframes fade{
-  0% {opacity: 0.2;}
-  50% { opacity: 1;}
-  100% {opacity: 0.2;}
+@keyframes fade {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
 }
