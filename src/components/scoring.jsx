@@ -13,7 +13,7 @@ function Score({ score, highScore }) {
 
 function Timer({ gameState, elapsedTime, setElapsedTime }) {
   useEffect(() => {
-    console.log(gameState.gameStatus);
+    console.log("gamestatus , from Timer" + gameState.gameStatus);
     if (gameState.gameStatus === "running") {
       const id = setInterval(() => {
         setElapsedTime((prev) => prev + 1);

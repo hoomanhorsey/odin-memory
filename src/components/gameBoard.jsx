@@ -16,16 +16,20 @@ function StartButton({
   function handleStartButton() {
     console.log("pressing start");
 
-    // resets chosenCard array
-    setChosenCards([]);
+    setChosenCards([]); // Resets selected cards for new round
+    setElapsedTime(0); // Resets timer counter
 
-    setElapsedTime(0);
+    // Setting gamePhase to 'running' triggers:
+    // - Randomizing the game cards (via useEffect in main board)
+    // - Enabling card clicks (by conditional 'onClick' in createBoard)
+    // - Starting the timer (via Timer component's useEffect)
 
-    // change in state results in: randomised card array, makes cards active, starts timer
+    // change in state results in:
+    // gamePhase to 'running' - randomised card array, makes cards active, starts timer
     updateGameStateFields(setGameState, {
       score: 0,
       gameWon: false,
-      gameStatus: "running",
+      gamePhase: "running",
     });
   }
 
@@ -33,10 +37,10 @@ function StartButton({
     console.log("pressing reset");
 
     // change in state results in: makes cards inactive, pauses timer
-    updateGameStateField(setGameState, "gameStatus", "idle");
+    updateGameStateField(setGameState, "gamePhase", "idle");
   }
 
-  if (gameState.gameStatus === "idle") {
+  if (gameState.gamePhase === "idle") {
     return (
       <>
         <button onClick={handleStartButton} className="startBtn">
@@ -98,10 +102,10 @@ function GameBoard({
 
   // Randomises cards
   useEffect(() => {
-    if (gameState.gameStatus === "running") {
-      randomiseArrayOrder(array);
+    if (gameState.gamePhase === "running") {
+      setArray((prevArray) => randomiseArrayOrder(prevArray));
     }
-  }, [gameState.gameStatus]);
+  }, [gameState.gamePhase]);
 
   function handleGameLost() {
     const updatedHighScore = Math.max(gameState.highScore, gameState.score);
@@ -110,7 +114,7 @@ function GameBoard({
       gameOver: false,
       score: 0,
       highScore: updatedHighScore,
-      gameStatus: "idle",
+      gamePhase: "idle",
     });
     console.log(updatedHighScore);
     alert("Wu-woah. You repeated yourself. Press start to try again");
@@ -129,7 +133,7 @@ function GameBoard({
 
     if (isRepeatedCard(chosenCards, id)) {
       console.log("Repeated");
-      updateGameStateField(setGameState, "gameStatus", "idle");
+      updateGameStateField(setGameState, "gamePhase", "idle");
       alert("gamelost");
     } else {
       setChosenCards([...chosenCards, e.target.id]);
@@ -176,7 +180,7 @@ function createBoard(gameState, array, handleCardClick) {
         className="gameCard"
         key={array[i].id}
         id={array[i].id}
-        onClick={gameState.gameStatus === "running" ? handleCardClick : null}
+        onClick={gameState.gamePhase === "running" ? handleCardClick : null}
       >
         {" "}
         {/* This causes the array[id] to be displayed */}
