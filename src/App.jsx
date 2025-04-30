@@ -1,6 +1,7 @@
 import "./App.css";
 
-import { GameContainer, GameHeader } from "./components/gameContainer";
+import { GameContainer } from "./components/gameControl";
+import { GameHeader } from "./components/plainElements";
 function App() {
   return (
     <>

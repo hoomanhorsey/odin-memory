@@ -17,6 +17,8 @@ function declareArray() {
 }
 
 async function populateArrayWithImages(setGameState) {
+  // setLoading(true);
+
   const array = declareArray();
   for (let i = 0; i < array.length; i++) {
     try {
@@ -60,4 +62,35 @@ function updateGameStateField(setGameState, field, value) {
   }));
 }
 
-export { randomiseArrayOrder, populateArrayWithImages, updateGameStateField };
+function OldupdateGameStateFields(setGameState, newFields) {
+  setGameState((prev) => ({
+    ...prev,
+    ...newFields,
+  }));
+}
+
+function updateGameStateFields(setGameState, newFields) {
+  setGameState((prev) => {
+    const updatedFields = {};
+
+    for (const key in newFields) {
+      const valueOrUpdater = newFields[key];
+      updatedFields[key] =
+        typeof valueOrUpdater === "function"
+          ? valueOrUpdater(prev[key])
+          : valueOrUpdater;
+    }
+
+    return {
+      ...prev,
+      ...newFields,
+    };
+  });
+}
+
+export {
+  randomiseArrayOrder,
+  populateArrayWithImages,
+  updateGameStateField,
+  updateGameStateFields,
+};

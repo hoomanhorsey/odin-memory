@@ -1,56 +1,116 @@
-import { handleCardClick } from "./gameLogic";
+import { useState, useEffect } from "react";
+import { isRepeatedCard } from "./gameLogic.jsx";
+import {
+  randomiseArrayOrder,
+  populateArrayWithImages,
+  updateGameStateField,
+  updateGameStateFields,
+} from "../utils/helpers.jsx";
 
-function GameBoard({ gameState, array, setArray }) {
-  console.table(array);
-  const tempBoard = createBoard(gameState, array, handleCardClick);
+function StartButton({
+  setArray,
+  gameState,
+  setGameState,
+  loading,
+  setLoading,
+  setChosenCards,
+  timer,
+  setTimer,
+}) {
+  async function handleStartButton(option) {
+    // if (loading) return; // <-- prevent starting while loading
+    if (option === 2) {
+      console.log("new catos need to be retriefed");
+      const newCats = await populateArrayWithImages(setLoading);
+      setArray(newCats);
+    }
+    console.log("pressing start");
 
-  return (
-    <>
-      <div>{gameState.gamePhase}</div>
-      <div className="gameBoard"> {tempBoard}</div>
-    </>
-  );
-}
+    console.table(gameState);
 
-function createBoard(gameState, array, handleCardClick) {
-  const tempBoard = [];
+    setChosenCards([]); // Resets selected cards for new round
+    // Resets timer counter
+    setTimer((prev) => ({
+      ...prev,
+      elapsedTime: 0,
+    }));
 
-  for (let i = 0; i < array.length; i++) {
-    tempBoard.push(
-      <div
-        className="gameCard"
-        key={array[i].id}
-        id={array[i].id}
-        onClick={gameState.gamePhase === "running" ? handleCardClick : null}
-      >
-        {" "}
-        {/* This causes the array[id] to be displayed */}
-        {array[i].id}
-        <img
-          className={`catImage ${
-            gameState.gamePhase === "running" ? "hoverEnabled" : ""
-          }`}
-          id={array[i].id}
-          src={array[i].url}
-        ></img>
-      </div>
+    // Setting gamePhase to 'running' triggers:
+    // - Randomizing the game cards (via useEffect in main board)
+    // - Enabling card clicks (by conditional 'onClick' in createBoard)
+    // - Starting the timer (via Timer component's useEffect)
+
+    // change in state results in:
+    // gamePhase to 'running' - randomised card array, makes cards active, starts timer
+    updateGameStateFields(setGameState, {
+      score: 0,
+      gameWon: false,
+      gamePhase: "running",
+    });
+  }
+
+  function handleResetButton() {
+    console.log("pressing reset");
+    console.table(gameState);
+
+    setTimer((prev) => ({
+      ...prev,
+      elapsedTime: 0,
+    }));
+    // change in state results in: makes cards inactive, pauses timer
+    updateGameStateFields(setGameState, {
+      score: 0,
+      // gamePhase: "idle",
+    });
+  }
+
+  if (gameState.gamePhase === "idle") {
+    return (
+      <>
+        <button onClick={() => handleStartButton(1)} className="startBtn">
+          Start
+        </button>
+      </>
     );
   }
-  return tempBoard;
+  if (gameState.gameWon === true) {
+    return (
+      <>
+        <button onClick={() => handleStartButton(1)} className="startBtn">
+          Restart
+        </button>
+
+        <button onClick={() => handleStartButton(2)} className="startBtn">
+          Restart with different cats
+        </button>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <button onClick={handleResetButton} className="startBtn">
+          Reset
+        </button>
+      </>
+    );
+  }
 }
 
-function GameBoardOld(
-  {
-    // gameState,
-    // setGameState,
-    // array,
-    // setArray,
-    // chosenCards,
-    // setChosenCards,
-    // timer,
-    // setTimer,
-  }
-) {
+function GameBoard({
+  gameState,
+  setGameState,
+  // loading,
+  // setLoading,
+  array,
+  setArray,
+  chosenCards,
+  setChosenCards,
+  timer,
+  setTimer,
+}) {
+  // Initial gameBoard setup with fresh fetched urls
+  // NOTE: SHould this be lifted to the game container????
+
   //!!!!!!!! Previous set up function!!!!//////
 
   // useEffect(() => {
@@ -170,4 +230,31 @@ function GameBoardOld(
   // return <>{board}</>;
 }
 
-export { GameBoard };
+function createBoard(gameState, array, handleCardClick) {
+  const board = [];
+
+  for (let i = 0; i < array.length; i++) {
+    board.push(
+      <div
+        className="gameCard"
+        key={array[i].id}
+        id={array[i].id}
+        onClick={gameState.gamePhase === "running" ? handleCardClick : null}
+      >
+        {" "}
+        {/* This causes the array[id] to be displayed */}
+        {array[i].id}
+        <img
+          className={`catImage ${
+            gameState.gamePhase === "running" ? "hoverEnabled" : ""
+          }`}
+          id={array[i].id}
+          src={array[i].url}
+        ></img>
+      </div>
+    );
+  }
+  return board;
+}
+
+export { GameBoard, StartButton };
