@@ -28,7 +28,7 @@ async function populateArrayWithImages(setGameState) {
     }
   }
 
-  updateGameStateField(setGameState, "gamePhase", "idle");
+  // updateGameStateField(setGameState, "gamePhase", "idle");
   // setLoading(false);
   return array;
 }

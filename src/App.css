@@ -70,8 +70,7 @@ header {
   min-width: 100px;
   /* border-radius: 25%; */
 }
-
-.startBtn {
+.gameBtn {
   margin: 10px;
   padding: 10px;
   box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,

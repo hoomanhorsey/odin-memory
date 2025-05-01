@@ -16,8 +16,7 @@ function GameContainer() {
   const [gameState, setGameState] = useState({
     score: 0,
     highScore: 0,
-    gameOver: false,
-    gameWon: false,
+    // gameOver: false,
     gamePhase: "setup",
   });
 

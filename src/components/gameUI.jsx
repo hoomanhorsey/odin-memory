@@ -6,6 +6,7 @@ import { GameButton } from "./gameButton";
 import { Score, Timer } from "./scoring";
 
 function GameUI({ gameState, setGameState, array, setArray }) {
+  const [chosenCards, setChosenCards] = useState([]);
   const [timer, setTimer] = useState({
     elapsedTime: 0,
     fastestTime: null,
@@ -19,6 +20,9 @@ function GameUI({ gameState, setGameState, array, setArray }) {
               gameState={gameState}
               setTimer={setTimer}
               setGameState={setGameState}
+              setChosenCards={setChosenCards}
+              array={array}
+              setArray={setArray}
             />
           </div>
 
@@ -33,8 +37,11 @@ function GameUI({ gameState, setGameState, array, setArray }) {
           <div className="gameBoard">
             <GameBoard
               gameState={gameState}
+              setGameState={setGameState}
               array={array}
               setArray={setArray}
+              chosenCards={chosenCards}
+              setChosenCards={setChosenCards}
             />
           </div>
         </>

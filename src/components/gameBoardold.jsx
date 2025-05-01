@@ -150,19 +150,18 @@ function GameBoard({
   // }, [gameState.gamePhase]);
 
   function handleGameLost() {
-    const updatedHighScore = Math.max(gameState.highScore, gameState.score);
-    // setChosenCards([]);
-    updateGameStateFields(setGameState, {
-      gameOver: false,
-      score: 0,
-      highScore: updatedHighScore,
-      // gamePhase: "idle",
-    });
-
-    if (gameState.gamePhase === "running") {
-      console.log(updatedHighScore);
-      alert("Wu-woah. You repeated yourself. Press start to try again");
-    }
+    // const updatedHighScore = Math.max(gameState.highScore, gameState.score);
+    // // setChosenCards([]);
+    // updateGameStateFields(setGameState, {
+    //   gameOver: false,
+    //   score: 0,
+    //   highScore: updatedHighScore,
+    //   // gamePhase: "idle",
+    // });
+    // if (gameState.gamePhase === "running") {
+    //   console.log(updatedHighScore);
+    //   alert("Wu-woah. You repeated yourself. Press start to try again");
+    // }
   }
   function handleGameWon() {
     console.log("game has been won");
