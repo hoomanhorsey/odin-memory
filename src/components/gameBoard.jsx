@@ -1,12 +1,10 @@
 import { handleCardClick } from "./gameLogic";
 
 function GameBoard({ gameState, array, setArray }) {
-  console.table(array);
   const tempBoard = createBoard(gameState, array, handleCardClick);
 
   return (
     <>
-      <div>{gameState.gamePhase}</div>
       <div className="gameBoard"> {tempBoard}</div>
     </>
   );

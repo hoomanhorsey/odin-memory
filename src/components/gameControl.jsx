@@ -20,7 +20,7 @@ function GameContainer() {
     gameWon: false,
     gamePhase: "setup",
   });
-  console.table(array);
+
   // setup game on Mount
   useEffect(() => {
     const runSetup = async () => {
@@ -33,19 +33,21 @@ function GameContainer() {
     };
     runSetup();
   }, []);
-  console.table(array);
 
   return (
     <>
+      <div>gamePhase: {gameState.gamePhase}</div>
+
       {gameState.gamePhase === "setup" ? (
         <LoadingScreen />
       ) : (
-        <GameUI gameState={gameState} array={array} setArray={setArray} />
+        <GameUI
+          gameState={gameState}
+          setGameState={setGameState}
+          array={array}
+          setArray={setArray}
+        />
       )}
-
-      <div>{gameState.gamePhase}</div>
-
-      <div></div>
     </>
   );
 }

@@ -59,5 +59,27 @@ function updateGameStateField(setGameState, field, value) {
     [field]: typeof value === "function" ? value(prev[field]) : value,
   }));
 }
+function updateGameStateFields(setGameState, newFields) {
+  setGameState((prev) => {
+    const updatedFields = {};
 
-export { randomiseArrayOrder, populateArrayWithImages, updateGameStateField };
+    for (const key in newFields) {
+      const valueOrUpdater = newFields[key];
+      updatedFields[key] =
+        typeof valueOrUpdater === "function"
+          ? valueOrUpdater(prev[key])
+          : valueOrUpdater;
+    }
+
+    return {
+      ...prev,
+      ...newFields,
+    };
+  });
+}
+export {
+  randomiseArrayOrder,
+  populateArrayWithImages,
+  updateGameStateField,
+  updateGameStateFields,
+};

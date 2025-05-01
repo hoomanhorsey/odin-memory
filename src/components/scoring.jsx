@@ -1,17 +1,22 @@
 import { useState, useEffect } from "react";
 
-function Score({ score, highScore }) {
+function Score({ gameState }) {
   return (
     <>
-      <div>Score : {score} </div>
-      <div>High Score : {highScore} </div>
+      <div>Score : {gameState.score} </div>
+      <div>High Score : {gameState.highScore} </div>
     </>
   );
 }
 
 //https://react.dev/learn/separating-events-from-effects#fix-a-variable-that-doesnt-update
 
-function Timer({ gameState, setTimer, timer }) {
+function Timer({ gameState }) {
+  const [timer, setTimer] = useState({
+    elapsedTime: 0,
+    fastestTime: null,
+  });
+
   useEffect(() => {
     console.log("gamestatus , from Timer: " + gameState.gamePhase);
     if (gameState.gamePhase === "running") {
@@ -30,8 +35,9 @@ function Timer({ gameState, setTimer, timer }) {
   return (
     <>
       <div>Time elapsed: {timer.elapsedTime} </div>
-
-      <div>Fastest time: {timer.fastestTime}</div>
+      {timer.fastestTime !== null ? (
+        <div>Fastest time: {timer.fastestTime}</div>
+      ) : null}
     </>
   );
 }

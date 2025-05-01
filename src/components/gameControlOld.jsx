@@ -48,7 +48,7 @@ function GameContainer() {
 
   const [timer, setTimer] = useState({
     elapsedTime: 0,
-    fastestTime: "No successful attempts",
+    fastestTime: null,
   });
 
   // const [loading, setLoading] = useState(true);
@@ -64,10 +64,8 @@ function GameContainer() {
               setArray={setArray}
               gameState={gameState}
               setGameState={setGameState}
-              // loading={loading}
-              // setLoading={setLoading}
-              chosenCards={chosenCards}
-              setChosenCards={setChosenCards}
+              // chosenCards={chosenCards}
+              // setChosenCards={setChosenCards}
               setTimer={setTimer}
               timer={timer}
             />
@@ -87,8 +85,8 @@ function GameContainer() {
               setGameState={setGameState}
               array={array}
               setArray={setArray}
-              chosenCards={chosenCards}
-              setChosenCards={setChosenCards}
+              // chosenCards={chosenCards}
+              // setChosenCards={setChosenCards}
               timer={timer}
               setTimer={setTimer}
             />

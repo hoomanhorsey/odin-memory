@@ -1,14 +1,34 @@
-import { GameBoard } from "./gameBoard";
+import { useState } from "react";
 
-function GameUI({ gameState, array, setArray }) {
-  console.log("array in GameUI:", array);
+import { GameBoard } from "./gameBoard";
+import { GameButton } from "./gameButton";
+
+import { Score, Timer } from "./scoring";
+
+function GameUI({ gameState, setGameState, array, setArray }) {
+  const [timer, setTimer] = useState({
+    elapsedTime: 0,
+    fastestTime: null,
+  });
   return (
     <>
       {gameState.gamePhase !== "setup" && (
         <>
-          <div>StartButton</div>
-          <div className="scorePanel">Score </div>
-          <div>Timer </div>
+          <div>
+            <GameButton
+              gameState={gameState}
+              setTimer={setTimer}
+              setGameState={setGameState}
+            />
+          </div>
+
+          <div className="scorePanel">
+            <Score gameState={gameState} />
+          </div>
+
+          <div className="timerPanel">
+            <Timer gameState={gameState} />
+          </div>
 
           <div className="gameBoard">
             <GameBoard
