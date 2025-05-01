@@ -72,7 +72,7 @@ function GameButton({
       <>
         <button
           onClick={() => handleGameButton("start", setChosenCards)}
-          className="gameBtn"
+          className="gameBtn pulse-element"
         >
           Start
         </button>

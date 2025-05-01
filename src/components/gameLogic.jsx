@@ -22,7 +22,7 @@ function handleCardClickOld(e) {
     console.log("No repeats: " + gameState.score);
     setArray(randomiseArrayOrder(array));
 
-    if (gameState.score === 2) {
+    if (gameState.score === 11) {
       updateGameStateField(setGameState, "gameWon", true);
     }
   }
