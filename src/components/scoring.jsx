@@ -11,11 +11,11 @@ function Score({ gameState }) {
 
 //https://react.dev/learn/separating-events-from-effects#fix-a-variable-that-doesnt-update
 
-function Timer({ gameState }) {
-  const [timer, setTimer] = useState({
-    elapsedTime: 0,
-    fastestTime: null,
-  });
+function Timer({ gameState, timer, setTimer }) {
+  // const [timer, setTimer] = useState({
+  //   elapsedTime: 500,
+  //   fastestTime: null,
+  // });
 
   useEffect(() => {
     console.log("gamestatus , from Timer: " + gameState.gamePhase);
@@ -27,11 +27,12 @@ function Timer({ gameState }) {
       return () => {
         clearInterval(id);
       };
-    } else {
+    } else if (gameState.gamePhase === "idle") {
       setTimer((prev) => ({ ...prev, elapsedTime: 0 }));
     }
   }, [gameState.gamePhase]);
 
+  // console.log(timer.elapsedTime);
   return (
     <>
       <div>Time elapsed: {timer.elapsedTime} </div>

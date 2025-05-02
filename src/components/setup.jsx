@@ -1,16 +1,16 @@
 async function setupGame(
-  updateGameStateField,
+  updateGameStateFields,
   setGameState,
   setArray,
   populateArrayWithImages
 ) {
-  updateGameStateField(setGameState, "gamePhase", "setup");
+  updateGameStateFields(setGameState, { gamePhase: "setup" });
   try {
     const newArray = await populateArrayWithImages(setGameState);
     setArray(newArray);
-    updateGameStateField(setGameState, "gamePhase", "idle");
+    updateGameStateFields(setGameState, { gamePhase: "idle" });
   } catch (err) {
-    updateGameStateField(setGameState, "gamePhase", "error");
+    updateGameStateFields(setGameState, { gamePhase: "error" });
   }
 }
 

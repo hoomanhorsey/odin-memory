@@ -5,7 +5,7 @@ import { setupGame } from "./setup.jsx";
 
 import { LoadingScreen } from "./loading.jsx";
 import { GameUI } from "./gameUI.jsx";
-import { updateGameStateField } from "../utils/helpers.jsx";
+import { updateGameStateFields } from "../utils/helpers.jsx";
 
 import { populateArrayWithImages } from "../utils/helpers.jsx";
 
@@ -13,10 +13,10 @@ function GameContainer() {
   const [array, setArray] = useState([]);
 
   // gameState state variable
+  // gamePhase options: setup, idle, running, gameWon, gameLost
   const [gameState, setGameState] = useState({
     score: 0,
     highScore: 0,
-    // gameOver: false,
     gamePhase: "setup",
   });
 
@@ -24,7 +24,7 @@ function GameContainer() {
   useEffect(() => {
     const runSetup = async () => {
       await setupGame(
-        updateGameStateField,
+        updateGameStateFields,
         setGameState,
         setArray,
         populateArrayWithImages
@@ -35,7 +35,7 @@ function GameContainer() {
 
   return (
     <>
-      <div>gamePhase: {gameState.gamePhase}</div>
+      <div>gamePhase: {gameState.gamePhase} **To be deleted</div>
 
       {gameState.gamePhase === "setup" ? (
         <LoadingScreen />

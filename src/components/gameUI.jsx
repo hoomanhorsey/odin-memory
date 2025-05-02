@@ -8,9 +8,11 @@ import { Score, Timer } from "./scoring";
 function GameUI({ gameState, setGameState, array, setArray }) {
   const [chosenCards, setChosenCards] = useState([]);
   const [timer, setTimer] = useState({
-    elapsedTime: 0,
+    elapsedTime: 5,
     fastestTime: null,
   });
+
+  // console.log(timer.elapsedTime);
   return (
     <>
       {gameState.gamePhase !== "setup" && (
@@ -31,7 +33,7 @@ function GameUI({ gameState, setGameState, array, setArray }) {
           </div>
 
           <div className="timerPanel">
-            <Timer gameState={gameState} />
+            <Timer gameState={gameState} timer={timer} setTimer={setTimer} />
           </div>
 
           <div className="gameBoard">
@@ -42,6 +44,8 @@ function GameUI({ gameState, setGameState, array, setArray }) {
               setArray={setArray}
               chosenCards={chosenCards}
               setChosenCards={setChosenCards}
+              timer={timer}
+              setTimer={setTimer}
             />
           </div>
         </>

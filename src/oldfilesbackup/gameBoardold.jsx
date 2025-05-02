@@ -32,7 +32,7 @@ function StartButton({
     // Resets timer counter
     setTimer((prev) => ({
       ...prev,
-      elapsedTime: 0,
+      elapsedTime: 500,
     }));
 
     // Setting gamePhase to 'running' triggers:

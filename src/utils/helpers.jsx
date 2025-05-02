@@ -27,9 +27,6 @@ async function populateArrayWithImages(setGameState) {
         "https://upload.wikimedia.org/wikipedia/commons/6/61/Cute_cat_extends_its_antennae.jpg"; // fallback placeholder
     }
   }
-
-  // updateGameStateField(setGameState, "gamePhase", "idle");
-  // setLoading(false);
   return array;
 }
 
@@ -52,13 +49,13 @@ async function getImageUrl() {
   return imageData[0].url;
 }
 
-function updateGameStateField(setGameState, field, value) {
-  setGameState((prev) => ({
-    ...prev,
-    // [field]: value,
-    [field]: typeof value === "function" ? value(prev[field]) : value,
-  }));
-}
+// function updateGameStateField(setGameState, field, value) {
+//   setGameState((prev) => ({
+//     ...prev,
+//     // [field]: value,
+//     [field]: typeof value === "function" ? value(prev[field]) : value,
+//   }));
+// }
 function updateGameStateFields(setGameState, newFields) {
   setGameState((prev) => {
     const updatedFields = {};
@@ -73,13 +70,8 @@ function updateGameStateFields(setGameState, newFields) {
 
     return {
       ...prev,
-      ...newFields,
+      ...updatedFields,
     };
   });
 }
-export {
-  randomiseArrayOrder,
-  populateArrayWithImages,
-  updateGameStateField,
-  updateGameStateFields,
-};
+export { randomiseArrayOrder, populateArrayWithImages, updateGameStateFields };
