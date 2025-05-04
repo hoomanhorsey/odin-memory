@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { updateGameStateFields } from "../utils/helpers";
 import { randomiseArrayOrder, populateArrayWithImages } from "../utils/helpers";
 

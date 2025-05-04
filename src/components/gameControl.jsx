@@ -35,7 +35,7 @@ function GameContainer() {
 
   return (
     <>
-      <div>gamePhase: {gameState.gamePhase} **To be deleted</div>
+      {/* <div>gamePhase: {gameState.gamePhase} **To be deleted</div> */}
 
       {gameState.gamePhase === "setup" ? (
         <LoadingScreen />

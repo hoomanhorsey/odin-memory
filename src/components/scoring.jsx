@@ -18,7 +18,6 @@ function Timer({ gameState, timer, setTimer }) {
   // });
 
   useEffect(() => {
-    console.log("gamestatus , from Timer: " + gameState.gamePhase);
     if (gameState.gamePhase === "running") {
       const id = setInterval(() => {
         setTimer((prev) => ({ ...prev, elapsedTime: prev.elapsedTime + 1 }));

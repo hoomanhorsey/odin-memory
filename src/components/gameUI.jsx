@@ -5,6 +5,8 @@ import { GameButton } from "./gameButton";
 
 import { Score, Timer } from "./scoring";
 
+import { GameEndMessage } from "./gameMessages";
+
 function GameUI({ gameState, setGameState, array, setArray }) {
   const [chosenCards, setChosenCards] = useState([]);
   const [timer, setTimer] = useState({
@@ -12,11 +14,13 @@ function GameUI({ gameState, setGameState, array, setArray }) {
     fastestTime: null,
   });
 
-  // console.log(timer.elapsedTime);
   return (
     <>
       {gameState.gamePhase !== "setup" && (
         <>
+          <div>
+            <GameEndMessage gameState={gameState} />
+          </div>
           <div>
             <GameButton
               gameState={gameState}
@@ -54,86 +58,4 @@ function GameUI({ gameState, setGameState, array, setArray }) {
   );
 }
 
-function GameUIOriginal() {
-  return (
-    <>
-      {gameState.gamePhase !== "setup" && (
-        <>
-          <div>
-            <StartButton
-              setArray={setArray}
-              gameState={gameState}
-              setGameState={setGameState}
-              chosenCards={chosenCards}
-              setChosenCards={setChosenCards}
-              setTimer={setTimer}
-              timer={timer}
-            />
-          </div>
-          <div className="scorePanel">
-            <Score score={gameState.score} highScore={gameState.highScore} />
-          </div>
-          <div>
-            <Timer gameState={gameState} timer={timer} setTimer={setTimer} />
-          </div>
-
-          <div className="gameBoard">
-            <GameBoard
-              gameState={gameState}
-              setGameState={setGameState}
-              array={array}
-              setArray={setArray}
-              chosenCards={chosenCards}
-              setChosenCards={setChosenCards}
-              timer={timer}
-              setTimer={setTimer}
-            />
-          </div>
-        </>
-      )}
-    </>
-  );
-}
-
 export { GameUI };
-
-// {
-//   return (
-//     <>
-//       {gameState.gamePhase !== "setup" && (
-//         <>
-//           <div>
-//             <StartButton
-//               setArray={setArray}
-//               gameState={gameState}
-//               setGameState={setGameState}
-//               chosenCards={chosenCards}
-//               setChosenCards={setChosenCards}
-//               setTimer={setTimer}
-//               timer={timer}
-//             />
-//           </div>
-//           <div className="scorePanel">
-//             <Score score={gameState.score} highScore={gameState.highScore} />
-//           </div>
-//           <div>
-//             <Timer gameState={gameState} timer={timer} setTimer={setTimer} />
-//           </div>
-
-//           <div className="gameBoard">
-//             <GameBoard
-//               gameState={gameState}
-//               setGameState={setGameState}
-//               array={array}
-//               setArray={setArray}
-//               chosenCards={chosenCards}
-//               setChosenCards={setChosenCards}
-//               timer={timer}
-//               setTimer={setTimer}
-//             />
-//           </div>
-//         </>
-//       )}
-//     </>
-//   );
-// }

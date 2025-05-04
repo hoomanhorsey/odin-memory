@@ -141,12 +141,21 @@ header {
 
 @keyframes fade {
   0% {
-    opacity: 0.2;
+    opacity: 0.1;
   }
   50% {
     opacity: 1;
   }
   100% {
-    opacity: 0.2;
+    opacity: 0.1;
   }
+}
+
+.gameEndMessage {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  background-color: yellow;
 }

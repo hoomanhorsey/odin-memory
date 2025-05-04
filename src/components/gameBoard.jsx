@@ -26,10 +26,10 @@ function GameBoard({
   }, [gameState.gamePhase]);
 
   function handleGameLost() {
-    alert(
-      "Sorry you've repeated yoursed! CONCENTRATE!!!! handleGameLost function called" +
-        chosenCards
-    );
+    // alert(
+    //   "Sorry you've repeated yoursed! CONCENTRATE!!!! handleGameLost function called" +
+    //     chosenCards
+    // );
 
     // gamePhase has been turned into idle....
 
@@ -88,9 +88,8 @@ function GameBoard({
       console.log("No repeats: " + gameState.score);
       setArray(randomiseArrayOrder(array));
 
-      if (gameState.score === 2) {
+      if (gameState.score === 6) {
         console.log(Math.min(timer.elapsedTime, timer.fastestTime));
-
         updateGameStateFields(setGameState, { gamePhase: "gameWon" });
       }
     }
@@ -114,7 +113,7 @@ function createBoard(gameState, array, handleCardClick) {
         onClick={gameState.gamePhase === "running" ? handleCardClick : null}
       >
         {/* This causes the array[id] to be displayed */}
-        {array[i].id}
+        {/* {array[i].id} */}
         <img
           className={`catImage ${
             gameState.gamePhase === "running" ? "hoverEnabled" : ""
