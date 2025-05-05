@@ -16,6 +16,7 @@ function GameUI({ gameState, setGameState, array, setArray }) {
 
   return (
     <>
+      version 1.1
       {gameState.gamePhase !== "setup" && (
         <>
           <div>
