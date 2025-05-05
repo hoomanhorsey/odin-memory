@@ -62,7 +62,7 @@ function GameBoard({
       // console.log("No repeats: " + gameState.score);
       setArray(randomiseArrayOrder(array));
 
-      if (gameState.score === 6) {
+      if (gameState.score === 11) {
         // console.log(Math.min(timer.elapsedTime, timer.fastestTime));
         updateGameStateFields(setGameState, { gamePhase: "gameWon" });
       }

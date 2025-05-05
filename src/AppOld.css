@@ -1,42 +1,60 @@
 /* Global Setttings - Mobile First */
 
 #root {
+  /* max-width: 100%; */
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
-body {
+header {
+  padding: 20px;
+  margin: 20px;
+  border-width: 10px;
+  border-radius: 15px;
+  background-color: pink;
+
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
+    rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
+    rgba(240, 46, 170, 0.05) 25px 25px;
+}
+
+.scorePanel {
+  padding: 20px;
+  margin: 20px;
+  font-size: larger;
+}
+
+.card {
+  padding: 3cap;
+}
+
+.gameBoard {
   display: flex;
-  width: 100%;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  gap: 30px;
+  width: 100%;
 }
-/* box shadows */
-header,
-.gameBtn,
-.catImage {
-  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
-    rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
-    rgba(68, 58, 64, 0.05) 25px 25px;
+.gameCard {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  margin: 10px;
+  padding: 10px;
+  min-height: 100px;
+  min-width: 100px;
 }
-
-header {
-  background-color: pink;
-  border-radius: 10px;
-  font-size: 1.3rem;
-  padding: 1rem;
-  margin: 0.5rem;
-}
-
 .gameBtn {
   background-color: pink;
-  border-radius: 10px;
-  font-size: 1.3rem;
-  font-weight: 800;
-  margin: 2.5rem 1.5rem 0rem 0rem;
-  padding: 1.5rem;
+  margin: 30px 20px 0px 20px;
+  padding: 10px;
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
+    rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
+    rgba(240, 46, 170, 0.05) 25px 25px;
 }
 
 @keyframes pulse {
@@ -52,44 +70,24 @@ header {
 }
 
 .pulse-element {
+  background-color: pink;
+  border-radius: 10px;
+  padding: 10px;
   animation: pulse 2s infinite;
 }
-/* 
-SCORE PANEL */
 
-.scorePanel,
-.timerPanel {
-  padding: 1.5rem;
-  margin: 1.5rem;
-  font-size: 1.5rem;
-}
-
-/* GAMEBOARD  */
-.gameBoard {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  width: 100%;
-}
-.gameCard {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  margin: 0.2rem;
-  padding: 0.2rem;
-  height: 16rem;
-  width: 16rem;
+.scoreBoard {
+  padding: 20px;
 }
 
 .catImage {
   display: flex;
-  width: 100%;
-  height: 100%;
+  width: 200px;
+  height: 250px;
   border-radius: 15%;
-  object-fit: cover;
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
+    rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
+    rgba(240, 46, 170, 0.05) 25px 25px;
 }
 
 .catImage.hoverEnabled:hover {
@@ -97,11 +95,8 @@ SCORE PANEL */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
 }
 
-/* LOADING */
 .loadingElement {
-  font-size: 1.3rem;
-  font-weight: 800;
-  padding: 3rem;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -110,6 +105,7 @@ SCORE PANEL */
 }
 
 .loading-text {
+  align-items: center;
   animation: fade 1s infinite;
 }
 
@@ -124,17 +120,15 @@ SCORE PANEL */
     opacity: 0.1;
   }
 }
-/* 
-END MESSAGE */
 
 .gameEndMessage {
   display: flex;
   flex-direction: column;
-  padding: 3rem;
-  margin: 5rem 3rem 2rem 3rem;
+  padding: 40px;
+  margin: 60px 40px 20px 40px;
   border-radius: 10px;
   background-color: rgb(255, 255, 0);
-  font-size: 2rem;
+  font-size: larger;
   box-shadow: rgba(255, 255, 0, 0.4) 5px 5px, rgba(255, 255, 0, 0.3) 10px 10px,
     rgba(255, 255, 0, 0.2) 15px 15px, rgba(255, 255, 0, 0.1) 20px 20px,
     rgba(255, 255, 0, 0.05) 25px 25px;
@@ -148,6 +142,13 @@ END MESSAGE */
   body {
     background-color: palegoldenrod;
   }
+
+  body {
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: clamp(1.5rem, 2rem, 4rem);
+  }
 }
 
 /* > 500px, < 1000px */
@@ -157,18 +158,16 @@ END MESSAGE */
   body {
     background-color: palegreen;
   }
-  .gameCard {
-    height: 12rem;
-    width: 12rem;
+  .heaader,
+  .main,
+  .footer {
+    max-width: 1000px;
+    margin: 0 auto;
   }
 }
 
 @media (max-width: 499px) {
-  html body {
+  body {
     background-color: paleturquoise;
-  }
-  .gameCard {
-    height: 6rem;
-    width: 6rem;
   }
 }
