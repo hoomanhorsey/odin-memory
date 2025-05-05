@@ -167,6 +167,11 @@ END MESSAGE */
   html body {
     background-color: paleturquoise;
   }
+
+  .gameBoard {
+    gap: 1rem;
+  }
+
   .gameCard {
     height: 5.8rem;
     width: 5.8rem;
