@@ -14,7 +14,12 @@ function GameBoard({
   timer,
   setTimer,
 }) {
-  const tempBoard = createBoard(gameState, array, handleCardClick);
+  const tempBoard = createBoard(
+    gameState,
+    array,
+    handleCardClick,
+    handleCareWhenIdle
+  );
 
   // Listens for game over due to losing
   useEffect(() => {
@@ -26,45 +31,16 @@ function GameBoard({
   }, [gameState.gamePhase]);
 
   function handleGameLost() {
-    // alert(
-    //   "Sorry you've repeated yoursed! CONCENTRATE!!!! handleGameLost function called" +
-    //     chosenCards
-    // );
-
-    // gamePhase has been turned into idle....
-
-    // show tryagain, Tray again with new cards?
-
     const updatedHighScore = Math.max(gameState.highScore, gameState.score);
     updateGameStateFields(setGameState, {
       highScore: updatedHighScore,
-      // gamePhase: "idle",
     });
-    // if (gameState.gamePhase === "running") {
-    //   console.log(updatedHighScore);
-    //   alert("Wu-woah. You repeated yourself. Press start to try again");
-    // }
   }
   function handleGameWon() {
-    console.log(timer.elapsedTime);
-    console.log(Math.min(timer.elapsedTime, timer.fastestTime));
-
-    // console.log("game has been won");
-    // alert("You won!!! ");
-    // setTimer((prev) => ({
-    //   ...prev,
-    //   elapsedTime: 0,
-    // }));
-
     const updatedHighScore = Math.max(gameState.highScore, gameState.score);
     updateGameStateFields(setGameState, {
       highScore: updatedHighScore,
-      // gamePhase: "idle",
     });
-
-    console.log(
-      "fastesttime: " + timer.fastestTime + " elapsedTime " + timer.elapsedTime
-    );
     const updatedFastestTime =
       timer.fastestTime === null
         ? timer.elapsedTime
@@ -76,23 +52,25 @@ function GameBoard({
     const id = e.target.id;
 
     if (isRepeatedCard(chosenCards, id)) {
-      console.log("Repeated");
+      // console.log("Repeated");
       updateGameStateFields(setGameState, { gamePhase: "gameLost" });
     } else {
       setChosenCards([...chosenCards, e.target.id]);
-
-      console.log(gameState.score);
       updateGameStateFields(setGameState, {
         score: (prevScore) => prevScore + 1,
       });
-      console.log("No repeats: " + gameState.score);
+      // console.log("No repeats: " + gameState.score);
       setArray(randomiseArrayOrder(array));
 
       if (gameState.score === 6) {
-        console.log(Math.min(timer.elapsedTime, timer.fastestTime));
+        // console.log(Math.min(timer.elapsedTime, timer.fastestTime));
         updateGameStateFields(setGameState, { gamePhase: "gameWon" });
       }
     }
+  }
+
+  function handleCareWhenIdle() {
+    alert("Press 'Start Timer' to start game");
   }
   return (
     <>
@@ -101,7 +79,7 @@ function GameBoard({
   );
 }
 
-function createBoard(gameState, array, handleCardClick) {
+function createBoard(gameState, array, handleCardClick, handleCardWhenIdle) {
   const tempBoard = [];
 
   for (let i = 0; i < array.length; i++) {
@@ -110,9 +88,13 @@ function createBoard(gameState, array, handleCardClick) {
         className="gameCard"
         key={array[i].id}
         id={array[i].id}
-        onClick={gameState.gamePhase === "running" ? handleCardClick : null}
+        onClick={
+          gameState.gamePhase === "running"
+            ? handleCardClick
+            : handleCardWhenIdle
+        }
       >
-        {/* This causes the array[id] to be displayed */}
+        {/* Display array[id] for gameTestingchecking*/}
         {/* {array[i].id} */}
         <img
           className={`catImage ${

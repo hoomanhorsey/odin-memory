@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 function Score({ gameState }) {
   return (
@@ -12,11 +12,6 @@ function Score({ gameState }) {
 //https://react.dev/learn/separating-events-from-effects#fix-a-variable-that-doesnt-update
 
 function Timer({ gameState, timer, setTimer }) {
-  // const [timer, setTimer] = useState({
-  //   elapsedTime: 500,
-  //   fastestTime: null,
-  // });
-
   useEffect(() => {
     if (gameState.gamePhase === "running") {
       const id = setInterval(() => {
@@ -31,7 +26,6 @@ function Timer({ gameState, timer, setTimer }) {
     }
   }, [gameState.gamePhase]);
 
-  // console.log(timer.elapsedTime);
   return (
     <>
       <div>Time elapsed: {timer.elapsedTime} </div>

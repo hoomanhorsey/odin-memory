@@ -24,7 +24,6 @@ function GameUI({ gameState, setGameState, array, setArray }) {
           <div>
             <GameButton
               gameState={gameState}
-              setTimer={setTimer}
               setGameState={setGameState}
               setChosenCards={setChosenCards}
               array={array}

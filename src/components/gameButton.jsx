@@ -4,7 +4,6 @@ import { randomiseArrayOrder, populateArrayWithImages } from "../utils/helpers";
 function GameButton({
   gameState,
   setGameState,
-  setTimer,
   setChosenCards,
   array,
   setArray,
@@ -14,31 +13,19 @@ function GameButton({
 
     if (option === "start") {
       setArray(randomiseArrayOrder(array));
-      setChosenCards([]); // Resets selected cards for new round
-      // Resets timer counter
-      // setTimer((prev) => ({
-      //   ...prev,
-      //   elapsedTime: 0,
-      // }));
+      setChosenCards([]);
 
-      // Setting gamePhase to 'running' triggers:
+      // change in gamePhase to 'running':
       // - Randomizing the game cards (via useEffect in main board)
       // - Enabling card clicks (by conditional 'onClick' in createBoard)
       // - Starting the timer (via Timer component's useEffect)
-
-      // change in state results in:
-      // gamePhase to 'running' - randomised card array, makes cards active, starts timer
       updateGameStateFields(setGameState, {
         score: 0,
         gameWon: false,
         gamePhase: "running",
       });
     } else if (option === "restart") {
-      // setTimer((prev) => ({
-      //   ...prev,
-      //   elapsedTime: 0,
-      // }));
-      // change in state results in: makes cards inactive, pauses timer
+      // change in gamePhase to idle: cards inactive, pauses timer
       updateGameStateFields(setGameState, {
         score: 0,
         gamePhase: "idle",
@@ -48,20 +35,12 @@ function GameButton({
         score: 0,
         gamePhase: "setup",
       });
-      console.log("restart with new cats");
-      // setTimer((prev) => ({
-      //   ...prev,
-      //   elapsedTime: 0,
-      // }));
-
       const newArray = await populateArrayWithImages(setGameState);
       setArray(newArray);
-      // change in state results in: makes cards inactive, pauses timer
-      //   updateGameStateFields(setGameState, {
-      //     score: 0,
-      //     gamePhase: "setup",
-      //   });
-      updateGameStateFields(setGameState, { gamePhase: "idle" });
+      // change in gamePhase to idle: cards inactive, pauses timer
+      updateGameStateFields(setGameState, {
+        gamePhase: (prevPhase) => (prevPhase === "setup" ? "idle" : prevPhase),
+      });
     }
   }
 
@@ -72,7 +51,7 @@ function GameButton({
           onClick={() => handleGameButton("start", setChosenCards)}
           className="gameBtn pulse-element"
         >
-          Start
+          Start Timer
         </button>
       </>
     );
