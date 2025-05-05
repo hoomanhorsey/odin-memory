@@ -169,7 +169,7 @@ END MESSAGE */
   }
 
   .gameBoard {
-    gap: 1rem;
+    gap: 0.02rem;
   }
 
   .gameCard {
