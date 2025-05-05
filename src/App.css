@@ -8,8 +8,10 @@
 
 body {
   display: flex;
+  min-height: 100vh;
   width: 100%;
-  flex-wrap: wrap;
+  margin: 0;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -65,13 +67,20 @@ SCORE PANEL */
 }
 
 /* GAMEBOARD  */
-.gameBoard {
+/* .gameBoard {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 1rem;
   width: 100%;
+} */
+
+.gameBoard {
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  gap: 1rem;
+  justify-content: center;
 }
 .gameCard {
   display: flex;
@@ -157,6 +166,10 @@ END MESSAGE */
   body {
     background-color: palegreen;
   }
+  .gameBoard {
+    gap: 0.02rem;
+    grid-template-columns: repeat(3, auto);
+  }
   .gameCard {
     height: 12rem;
     width: 12rem;
@@ -170,6 +183,7 @@ END MESSAGE */
 
   .gameBoard {
     gap: 0.02rem;
+    grid-template-columns: repeat(3, auto);
   }
 
   .gameCard {
