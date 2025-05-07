@@ -1,20 +1,34 @@
 /* Global Setttings - Mobile First */
 
 #root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
-body {
-  display: flex;
-  min-height: 100vh;
+html {
+  min-height: 100%;
   width: 100%;
-  margin: 0;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  background-color: paleturquoise;
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  min-width: 100vw;
+  width: max-content; /* Allow to grow horizontally with content */
+  background-color: paleturquoise;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 /* box shadows */
 header,
 .gameBtn,
@@ -24,7 +38,17 @@ header,
     rgba(68, 58, 64, 0.05) 25px 25px;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 header {
+  display: flex;
+  flex-direction: column;
+
   background-color: pink;
   border-radius: 10px;
   font-size: 1.3rem;
@@ -66,21 +90,11 @@ SCORE PANEL */
   font-size: 1.5rem;
 }
 
-/* GAMEBOARD  */
-/* .gameBoard {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  width: 100%;
-} */
-
 .gameBoard {
   display: grid;
-  grid-template-columns: repeat(6, auto);
+  grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
-  justify-content: center;
+  align-items: center;
 }
 .gameCard {
   display: flex;
@@ -154,8 +168,12 @@ END MESSAGE */
 @media (min-width: 1000px) {
   /* for testing */
 
+  header {
+    max-width: 1500px;
+    padding: 1rem 5rem;
+  }
   body {
-    background-color: palegoldenrod;
+    /* background-color: palegoldenrod; */
   }
 }
 
@@ -164,7 +182,11 @@ END MESSAGE */
 @media (min-width: 500px) and (max-width: 1000px) {
   /* for testing */
   body {
-    background-color: palegreen;
+    /* background-color: palegreen; */
+  }
+
+  header {
+    max-width: 750px;
   }
   .gameBoard {
     gap: 0.02rem;
@@ -178,7 +200,11 @@ END MESSAGE */
 
 @media (max-width: 499px) {
   html body {
-    background-color: paleturquoise;
+    /* background-color: paleturquoise; */
+  }
+
+  header {
+    max-width: 400px;
   }
 
   .gameBoard {

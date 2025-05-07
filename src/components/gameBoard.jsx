@@ -74,7 +74,9 @@ function GameBoard({
   }
   return (
     <>
-      <div className="gameBoard"> {tempBoard}</div>
+      <>{tempBoard}</>
+
+      {/* <div className="gameBoard"> {tempBoard}</div> */}
     </>
   );
 }
